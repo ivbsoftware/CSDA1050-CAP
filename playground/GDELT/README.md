@@ -1,9 +1,5 @@
+This section is describing how to retrieve, process and present online news data to the issues related to Toronto affordable housing. The main source of infrmation is [The GDELT Project](https://www.gdeltproject.org/).
 
+The report is presented in the form of [PDF file](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT/gdelt_gkg_affordable_housing.pdf).
 
-This query returns 
-https://api.gdeltproject.org/api/v2/doc/doc?query=toronto%20affordable%20housing&mode=TimelineVolInfo
-
-
-http://analysis.gdeltproject.org/module-gkg-tonetimeline.html
-Toronto
-WB_904_HOUSING_MARKETS,WB_871_HOUSING_SUBSIDIES,WB_870_HOUSING_CONSTRUCTION,WB_817_LAND_AND_HOUSING,WB_612_HOUSING_FINANCE,WB_2188_AFFORDABLE_HOUSING_SUPPLY,WB_2187_RENTAL_HOUSING,WB_2186_SOCIAL_HOUSING,WB_1722_HOUSING_POLICY_AND_INSTITUTIONS,WB_1594_HOUSING_ALLOWANCE
+Runnable script used to generate the report presented [here](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT/gdelt_gkg_affordable_housing.Rmd).
