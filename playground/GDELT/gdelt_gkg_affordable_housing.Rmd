@@ -14,27 +14,27 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction
-This report is describing how to retrieve, process and present online news data to the issues related to Toronto affordable housing. The main source of infrmation is [The GDELT Project](https://www.gdeltproject.org/) which is a realtime network diagram and database of global human society for open research. GDELT Project monitors the world's broadcast, print, and web news from nearly every corner of every country in over 100 languages and identifies the people, locations, organizations, themes, sources, emotions, counts, quotes, images and events driving our global society every second of every day.
+This report is describing how to retrieve, process and present online news data related to Toronto affordable housing. The main source of information is [The GDELT Project](https://www.gdeltproject.org/) which is a realtime network diagram and database of global human society for open research. GDELT Project monitors the world's broadcast, print, and web news from nearly every corner of every country in over 100 languages and identifies the people, locations, organizations, themes, sources, emotions, counts, quotes, images and events driving our global society every second of every day.
 
-The news tone is an important information that in combination with actual pricing data could be used in analysis of the housing affordability and predictng of pricing trend.
+The news tone is an important information that combined with actual pricing data could be used in analysis of the housing affordability and predicting of pricing trend.
 
 # Discussion
-Even though GDELT contains lots of information usefull for our task, extracting actual historical economical information like housing prices in a particular area is a difficult and unreliable process. GDELT is designed to collect emotional and geolocational information related to the news. We will use it to access the news tonal information related specifically to Toronto's housing affordability crisis.
+Even though GDELT has lots of information useful for our task, extracting real historical economical information like housing prices in a particular area is a difficult and unreliable process. GDELT designed to collect emotional and geolocational information related to the news. We will use it to reach the news tonal information related specifically to Toronto's housing affordability crisis.
 
-The following steps are suggested:
+We suggest the following steps:
+
 
  1. Retrieve historical news tone data.
- 2. Develop a method of scrited retrieval of detailed latest news tonal data.
+ 2. Develop a method of scripted retrieval of detailed latest news tonal data.
  3. Compare the news tone to major Canadian economical indices.
-
 
 # Data Retrieving
 
 ## Retrieving historical tonal information using BigQuery API
 
-The historical information has to be retrieved once, so we will do it using Google BigQuery API. The GDELT data structure is described in the [DDELT GKG DATA FORMAT CODEBOOK](http://data.gdeltproject.org/documentation/GDELT-Global_Knowledge_Graph_Codebook-V2.1.pdf). The following document provodes some examples of the queries to that API: [Google BigQuery + GKG 2.0: Sample Queries](https://blog.gdeltproject.org/google-bigquery-gkg-2-0-sample-queries/). Access to the API provided browsing on over to the [GKG table in BigQuery](https://bigquery.cloud.google.com/table/gdelt-bq:gdeltv2.gkg). Please note that this requeres a valid Google BigQuery account.
+The historical information could be retrieved once, so we will do it using Google BigQuery API. The GDELT data structure described in the [DDELT GKG DATA FORMAT CODEBOOK](http://data.gdeltproject.org/documentation/GDELT-Global_Knowledge_Graph_Codebook-V2.1.pdf). The following document provides some examples of the queries to that API: [Google BigQuery + GKG 2.0: Sample Queries](https://blog.gdeltproject.org/google-bigquery-gkg-2-0-sample-queries/). Access to the API provided browsing on over to the [GKG table in BigQuery](https://bigquery.cloud.google.com/table/gdelt-bq:gdeltv2.gkg). Please note that this requires a valid Google BigQuery account.
 
-The SQL statement below will extract the news coverage average tone and number of articles related to Toronto's housing matters from the begining of 2015 to March 2019 aggregsted daily. The SQL was run and the resulting csv file saved locally. Note that this procedure could be done by running direct R or Python API accessing BigQuery from the script.
+The SQL statement below will extract the news coverage average tone and number of articles related to Toronto's housing matters from the beginning of 2015 to March 2019 aggregated daily. The SQL was run and the resulting csv file saved locally. Note that this procedure could be done by running direct R or Python API accessing BigQuery from the script.
 
 \newpage
 
@@ -65,7 +65,7 @@ autoplot(toneTS) + facet_free() + xlab(NULL)
 
 \newpage
 
-As we can see, the daily aggregation is not very representative. Let's aggregate the news tone and article count numbers monthly. Figure \ref{fig:fg2}  displays the resulting data suplemented with trend lines.
+As we can see, the daily aggregation is not very representative. Let's aggregate the news tone and article count numbers monthly. Figure \ref{fig:fg2}  displays the resulting data supplemented with trend lines.
 
 ```{r fg2, fig.cap="Toronto housing issue news tone time series, aggregated monthly", fig.align='center', fig.height=5.5}
 x2d <- aggregate(toneTS, as.Date(cut(time(toneTS), "month")), mean)
@@ -116,7 +116,7 @@ autoplot(wa) + scale_x_yearmon()+ facet_free()+ xlab(NULL) + geom_smooth(colour 
 
 ## Using GDELT full-text search API
 
-Another possibility to access GDELT tone information is to use [GDELT full-text search API](https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/). It allows to access a 3-month window of latest information updated every 15 minutes. The advantage of this API over the one described before is ability to do a full-text search instead of quering tags and by that not relying on questionable accuracy of GDELT algorithms to recognise those tags in the news articles. Let's try to extract the news tone information via full-text search. The code below gets the average "tone" of all matching coverage, from extremely negative to extremely positive. Figure \ref{fig:fig7} shows the 30 days history of the news tome and intensity.
+Another possibility to reach GDELT tone information is to use [GDELT full-text search  API](https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/). It allows to access a 3-month window of latest information updated every 15 minutes. The advantage of this API over the one described before is ability to do a full-text search instead of queuing tags and by that not relying on questionable accuracy of GDELT algorithms to recognise those tags in the news articles. Let's try to extract the news tone information via full-text search. The code below gets the average "tone" of all matching coverage, from extremely negative to extremely positive. Figure \ref{fig:fig7} shows the 30 days history of the news tome and intensity.
 
 ```{r fig7, fig.cap="Toronto Affordable Housing - last 3 month of news coverage", fig.height=4.5, fig.align='center'}
 api   <- "https://api.gdeltproject.org/api/v2/doc/doc?format=csv&query="
@@ -147,22 +147,21 @@ library(wordcloud)
 set.seed(11)
 Words <- read.table(paste0(api,terms,"&mode=WordCloudImageWebTags"),
                     sep = ",", header = T)
-wordcloud(Words[,1], Words[,2], colors = brewer.pal(6,"Dark2"), max.words = 50)
+wordcloud(Words[1:50,1], Words[1:50,2], colors = brewer.pal(6,"Dark2"))
 ```
 
 \newpage
 
 # Conclusion
 
-This report covered several possibilities of Toronto housing problem news coverage analysis. This coverage is presented in a quantified form of time series that allows to use this information along with other housing related data like rent prices for different forms of analysis. In this report the following was done:
+This report covered several possibilities of Toronto housing problem news coverage analysis. This coverage presented in a quantified form of time series that allows to use this information along with other housing related data like rent prices for different forms of analysis. In this report the following was done:
 
- - Proposed method of one time extracting and presenting of historical news tone and intencity data.
- - Proposed method of regular scripted extraction of up to 3 months of real time news tone and coverage intencity based of full text search of the all news data.
-  - Demonstrated a method of comparing news tone and intencity time series to major economical indices like interest rate and housing index.
+ - Proposed method of one time extracting and presenting of historical news tone and intensity data.
+ - Proposed method of regular scripted extraction of up to 3 months of real-time news tone and coverage intensity based of full text search of the all news data.
+  - Demonstrated a method of comparing news tone and intensity time series to major economical indices like interest rate and housing index.
   - Demonstrated a method of creating date-specific word clouds based on full text search of related news articles.
-  
+
 The next steps in the research could be:
 
- - Creating an interavtive online application allowing to present and download the information presented in the report.
+ - Creating an interactive online application allowing to present and download the information presented in the report.
  - Developing a prediction model based on data described in the report and other related Toronto housing data that should be scraped from the web.
-
