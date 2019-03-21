@@ -58,7 +58,7 @@ tmp <- read.table("./toronto-housing-daily-tone-20190317-194930.csv",
                   sep = ",", header = T)
 toneTS <- zoo(tmp[,2:3], as.Date(as.character(tmp[,1]), format="%Y%m%d"))
 ```
-```{r fig1, fig.cap="Toronto Housing Issue News Tone Time Series Aggregated Daily", fig.align='center', fig.height=5}
+```{r fig1, fig.cap="Toronto housing issue news tone time series aggregated daily", fig.align='center', fig.height=5}
 library(ggplot2)
 autoplot(toneTS) + facet_free() + xlab(NULL)
 ```
@@ -105,7 +105,7 @@ autoplot(prime_rates) + scale_x_yearmon() + geom_smooth(colour = "green") +
 
 Code below creates Figure \ref{fig:fig6} that comparing news tone to the economical indices since the begining of 2018.
 
-```{r fig6, fig.cap="Comparing news tone to major economical Indices", fig.height=8, fig.align='center'}
+```{r fig6, fig.cap="Comparing news tone to major economical indices", fig.height=8, fig.align='center'}
 x2d <- aggregate(toneTS, as.yearmon, mean)
 a <- merge(x2d, housing_index, prime_rates)
 wa <- window(a, start = as.yearmon(2018,1))
@@ -116,9 +116,9 @@ autoplot(wa) + scale_x_yearmon()+ facet_free()+ xlab(NULL) + geom_smooth(colour 
 
 ## Using GDELT full-text search API
 
-Another possibility to reach GDELT tone information is to use [GDELT full-text search  API](https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/). It allows to access a 3-month window of latest information updated every 15 minutes. The advantage of this API over the one described before is ability to do a full-text search instead of queuing tags and by that not relying on questionable accuracy of GDELT algorithms to recognise those tags in the news articles. Let's try to extract the news tone information via full-text search. The code below gets the average "tone" of all matching coverage, from extremely negative to extremely positive. Figure \ref{fig:fig7} shows the 30 days history of the news tome and intensity.
+Another possibility to reach GDELT tone information is to use [GDELT full-text search  API](https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/). It allows to access a 3-month window of latest information updated every 15 minutes. The advantage of this API over the one described before is ability to do a full-text search instead of queuing tags and by that not relying on questionable accuracy of GDELT algorithms to recognise those tags in the news articles. Let's try to extract the news tone information via full-text search. The code below gets the average "tone" of all matching coverage, from extremely negative to extremely positive. Figure \ref{fig:fig7} shows the 3 month history of the news tone and intensity.
 
-```{r fig7, fig.cap="Toronto Affordable Housing - last 3 month of news coverage", fig.height=4.5, fig.align='center'}
+```{r fig7, fig.cap="Toronto affordable housing - last 3 month of news coverage", fig.height=4.5, fig.align='center'}
 api   <- "https://api.gdeltproject.org/api/v2/doc/doc?format=csv&query="
 
 terms <- "near10:%22toronto%20housing%22"
@@ -140,7 +140,7 @@ autoplot(tone30) + facet_free()+ xlab(NULL) + geom_smooth(colour = "red")
 
 GDELT API allows creating word clouds. Please note that by applying time and date parameters those clouds could be tied to the timeline. Code below creates a word cloud (Fig. \ref{fig:fig8}) of the Toronto housing related news for the last 3 month.
 
-```{r fig8, fig.cap="Toronto Affordable Housing Word cloud", fig.height=5.5, fig.align='center'}
+```{r fig8, fig.cap="Toronto affordable Housing Word cloud", fig.height=5.5, fig.align='center'}
 library(RColorBrewer)
 library(wordcloud)
 
