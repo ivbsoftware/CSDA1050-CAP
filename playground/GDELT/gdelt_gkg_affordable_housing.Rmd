@@ -76,7 +76,7 @@ autoplot(x2d) + facet_free() + xlab(NULL) + geom_smooth(colour = "red")
 
 For the purpose of analysis the tone time series can be zoomed to specific time window and the data can be aggregated differently. Figure \ref{fig:fig3} shows the last 6 month of data aggregated weekly.
 
-```{r fig3, fig.cap="Toronto housing issue news tone time series, aggregated Weekly", fig.align='center', fig.height=5}
+```{r fig3, fig.cap="Toronto housing issue news tone time series, aggregated weekly", fig.align='center', fig.height=5}
 w <- window(toneTS, start = as.Date("2018-10-01"))
 w <- aggregate(w, as.Date(cut(time(w), "week")), mean)
 autoplot(w) + facet_free() + xlab(NULL) + geom_smooth(colour = "red")
