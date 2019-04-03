@@ -12,8 +12,15 @@ for line in tweets_file:
         tweet = json.loads(line)
 
         # FLATTEN DATA
-        # store the user screen name in 'user_screen_name'
+        # store the user data in their own columns
         tweet['user_screen_name'] = tweet['user']['screen_name']
+        tweet['user_verfied'] = tweet['user']['verified']
+        tweet['user_followers_count'] = tweet['user']['followers_count']
+        tweet['user_friends_count'] = tweet['user']['friends_count']
+        tweet['user_favourites_count'] = tweet['user']['favourites_count']
+        tweet['user_statuses_count'] = tweet['user']['statuses_count']
+        tweet['user_language'] = tweet['user']['lang']
+        tweet['user_display_name'] = tweet['user']['name']
 
         # Check if this is a 140+ character tweet
         if 'extended_tweet' in tweet:
