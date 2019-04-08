@@ -21,9 +21,6 @@ df = pd.read_csv('CL.csv')
 print(df.head())
 list(df)
 
-
-
-
 #%%
 
 #Load in data from database - to conform all column headers
@@ -33,7 +30,6 @@ engine = sqlalchemy.create_engine("mssql+pyodbc://USER:PASSWORD@DETSQL")
 df_db = pd.read_sql_query(myQuery, engine)
 
 
-#df.to_sql('CSDA1050_CL', con=engine, if_exists='append')
 
 #%%
 
@@ -46,6 +42,36 @@ tmp = list(df_db)
 for colname in list(df_db):
     if colname not in list(df):
         df[colname] = np.NAN
+#%%
+
+#Transform geotag into lat/long  
+
+df.loc[df.geotag=="a", 'geotag'] = np.nan
+
+      
+lat = []
+lon = []
+        
+# For each row in a varible,
+for row in df['geotag']:
+    # Try to,
+    try:
+        # Split the row by comma and append
+        # everything before the comma to lat
+        lat.append(row.split(',')[0])
+        # Split the row by comma and append
+        # everything after the comma to lon
+        lon.append(row.split(',')[1])
+    # But if you get an error
+    except:
+        # append a missing value to lat
+        lat.append(np.NaN)
+        # append a missing value to lon
+        lon.append(np.NaN)
+
+# Create two new columns from lat and lon
+df['latitude'] = lat
+df['longitude'] = lon
 
 #%%
 #Are the two sets of column names equal?
@@ -59,8 +85,8 @@ df.id = df['id'].astype(str).astype(float)
 df.latitude = df['latitude'].astype(str).astype(float)
 df.longitude = df['longitude'].astype(str).astype(float)
 df.repost_of = df['repost_of'].astype(str).astype(float)
-df.geotag = df['geotag'].astype(str).astype(bool)
-df.has_image = df['has_image'].astype(str).astype(bool)
+df.geotag = df['geotag'].astype(str)
+#df.has_image = df['has_image'].astype(str).astype(bool)
 df.has_map = df['has_map'].astype(str).astype(bool)
 df.url = df['url'].astype(str)
 
@@ -71,7 +97,7 @@ df['datetime']=pd.to_datetime(df['datetime'])
 
 #%%
 
-engine = sqlalchemy.create_engine("mssql+pyodbc://USER:PASSWORD")
+engine = sqlalchemy.create_engine("mssql+pyodbc://USER:PASSWORD@DETSQL")
 df.to_sql('CSDA1050_CL', con=engine, if_exists='append',index=False)
 
 #%%
