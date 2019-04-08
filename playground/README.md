@@ -1,6 +1,7 @@
 # CSDA1050-CAP
 
 #GDELT
+
 	##-> Extraction from API
 	
 	##-> Transforming/Loading to DB
@@ -8,6 +9,7 @@
 	##-> EDA Notebook
 	
 #Kijiji_Rental 
+
 	##-> Extraction from API
 	
 	##-> Transforming/Loading to DB
