@@ -1,5 +1,3 @@
 playground/GDELT/todelete/
-playground/MParravani/credentials.py
-playground/CL.csv
-playground/.ipynb_checkpoints/Craigslist ETL-checkpoint.ipynb
-data/CL.csv
+playground/GDELT/.RData
+playground/GDELT/.Rhistory
