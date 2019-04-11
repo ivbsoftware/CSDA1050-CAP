@@ -6,7 +6,7 @@ SPRINT 3 PLAN - TWITTER TWEETS
 ## What has been done?
 1. Twitter Stream - data collected from March 18, 2019 to April 10, 2019 (partial) with some intermittent gaps when the process failed.  "twitter_stream_post.py"
 2. Clean/Parse data - combined all stream files into 2 files tweets and users (users file is shared with Ariana). "tweet_data.py"
-3. EDA - minimum work done on EDA, spent most time with additional cleaning and formatting of the data
+3. EDA - minimum work done on EDA, spent most time with additional cleaning and formatting of the data. "twitter_analysis.ipynb"
 
 ## What planned to do Sprint 3
 1. Some additional cleaning
