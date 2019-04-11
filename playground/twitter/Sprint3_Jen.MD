@@ -18,7 +18,8 @@ SPRINT 3 PLAN - TWITTER TWEETS
   - Topic and Maps together ... maybe could be compared to Igor's GDELT data
   - User Language vs Tweet Language (depends on how cleaning goes in 1)
   - Mentions in Tweets to users ?? 
-3. Time permitting 
+3. Search internet for other twitter analysis already done and see if I can incorporate it into mine 
+4. Time permitting 
   - clean up code to put all cleaning together
    - review columns in stream files to check for additional fields with usable information
    - merge users and tweets into 1 file
