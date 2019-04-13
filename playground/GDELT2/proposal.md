@@ -6,9 +6,11 @@
  extraction of GTA geo-fenced GDELD events daily (from yesterday backwards). For each day it extracts unique news links, extracts news narrative and create aggregated news narrative. This text is tokenized and then 30 topics are being extracted. After that the script prepares topics visualization using PyLDAViz and Wordcloud.
 
 ## Conclusions
- - GDELT event dataset has about 200K new articles a day.
- - There are 200-800 GTA related unique news a day.
- - GDELT geo coordinates are not detailed and relate to the city center. Average daily news set brings about 4 unique heo coordinated, so the data can't be used for detailed mapping visualizations inside GTA.
+ - GDELT event data contains records of news articles. In addition to the date, location and the url, the data might have names of up to 2 main actors of the event (with their locations) and characterization of their interaction/conflict. There is also estimations of the news sentiment.
+ - GDELT event dataset has about 200K new articles per day.
+ - There are 200-800 GTA related unique news per day.
+ - GDELT geo coordinates are not detailed and usually refer to city center. Average daily news set brings about 4 unique geo coordinates, so the data can't be used for detailed mapping visualizations inside GTA.
+  - It was proven by sampling the data and by exploratory processing, that it is feasible to use GDELT information for NLP-related analysis of the news and some limited geo-location analysis of the sentiment if it's combined with other sources of data.
 
 ## Proposals
 
