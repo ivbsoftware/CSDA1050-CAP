@@ -1,0 +1,368 @@
+"","Type","Bedrooms","Bathrooms","mean_price"
+"1","Att/Row/Twnhouse 2-Storey","1","1",1316.66666666667
+"2","Att/Row/Twnhouse 2-Storey","1","3",1150
+"3","Att/Row/Twnhouse 2-Storey","2","2",2495
+"4","Att/Row/Twnhouse 2-Storey","2","3",7500
+"5","Att/Row/Twnhouse 2-Storey","3","1",2762.5
+"6","Att/Row/Twnhouse 2-Storey","3","2",2533.33333333333
+"7","Att/Row/Twnhouse 2-Storey","3","3",5875
+"8","Att/Row/Twnhouse 2-Storey","3","4",3075
+"9","Att/Row/Twnhouse 2-Storey","3","6",3900
+"10","Att/Row/Twnhouse 2-Storey","4","4",12500
+"11","Att/Row/Twnhouse 2 1/2 Storey","1","1",2350
+"12","Att/Row/Twnhouse 2 1/2 Storey","2","2",2675
+"13","Att/Row/Twnhouse 2 1/2 Storey","4","2",2800
+"14","Att/Row/Twnhouse 3-Storey","1","1",700
+"15","Att/Row/Twnhouse 3-Storey","2","2",2200
+"16","Att/Row/Twnhouse 3-Storey","3","2",3597.8
+"17","Att/Row/Twnhouse 3-Storey","3","3",3731.36363636364
+"18","Att/Row/Twnhouse 3-Storey","3","4",2900
+"19","Att/Row/Twnhouse 3-Storey","3","5",13500
+"20","Att/Row/Twnhouse 3-Storey","4","3",3147.5
+"21","Att/Row/Twnhouse 3-Storey","4","4",4448.33333333333
+"22","Att/Row/Twnhouse 3-Storey","5","4",4000
+"23","Att/Row/Twnhouse Apartment","1","1",1100
+"24","Att/Row/Twnhouse Apartment","2","3",2699
+"25","Att/Row/Twnhouse Apartment","3","2",2000
+"26","Att/Row/Twnhouse Other","4","3",5000
+"27","Att/Row/Twnhouse Other","5","2",3280
+"28","Co-Op Apt Apartment","1","1",2003.75
+"29","Co-Op Apt Apartment","2","2",3000
+"30","Co-Op Apt Apartment","2","3",6700
+"31","Co-Ownership Apt 2-Storey","2","2",2500
+"32","Co-Ownership Apt Apartment","2","1",2400
+"33","Co-Ownership Apt Bachelor/Studio","1","1",1795
+"34","Comm Element Condo 2-Storey","1","2",4600
+"35","Comm Element Condo 3-Storey","2","3",8500
+"36","Comm Element Condo Apartment","1","1",2217.2
+"37","Comm Element Condo Apartment","2","1",2343.6
+"38","Comm Element Condo Apartment","2","2",4088
+"39","Comm Element Condo Apartment","2","3",3200
+"40","Comm Element Condo Apartment","3","2",3633.33333333333
+"41","Comm Element Condo Apartment","3","3",5350
+"42","Comm Element Condo Loft","1","1",5850
+"43","Comm Element Condo Loft","2","1",2990
+"44","Comm Element Condo Loft","2","2",2950
+"45","Comm Element Condo Multi-Level","1","1",1800
+"46","Comm Element Condo Multi-Level","2","1",2100
+"47","Comm Element Condo Multi-Level","2","2",2700
+"48","Comm Element Condo Multi-Level","3","2",3900
+"49","Comm Element Condo Multi-Level","3","3",17000
+"50","Comm Element Condo Other","2","2",3695
+"51","Comm Element Condo Stacked Townhse","2","2",2875
+"52","Condo Apt 2-Storey","1","1",2475
+"53","Condo Apt 2-Storey","1","2",3000
+"54","Condo Apt 2-Storey","2","1",2200
+"55","Condo Apt 2-Storey","2","2",4688.33333333333
+"56","Condo Apt 2-Storey","2","3",5462.66666666667
+"57","Condo Apt 2-Storey","3","4",18500
+"58","Condo Apt 2-Storey","4","2",3500
+"59","Condo Apt 2-Storey","4","3",8500
+"60","Condo Apt 2-Storey","4","4",10000
+"61","Condo Apt 2-Storey","5","7",15000
+"62","Condo Apt Apartment","1","1",2140.83954619125
+"63","Condo Apt Apartment","1","2",4183.33333333333
+"64","Condo Apt Apartment","2","1",2359.30495049505
+"65","Condo Apt Apartment","2","2",3174.93237704918
+"66","Condo Apt Apartment","2","3",5669.91666666667
+"67","Condo Apt Apartment","3","1",2750
+"68","Condo Apt Apartment","3","2",3769.15165876777
+"69","Condo Apt Apartment","3","3",6902.64285714286
+"70","Condo Apt Apartment","3","4",16250
+"71","Condo Apt Apartment","4","2",3572.72727272727
+"72","Condo Apt Apartment","4","3",4208
+"73","Condo Apt Apartment","4","4",18000
+"74","Condo Apt Apartment","5","5",21000
+"75","Condo Apt Apartment","7","4",14000
+"76","Condo Apt Bachelor/Studio","1","1",1998
+"77","Condo Apt Bachelor/Studio","1","2",2150
+"78","Condo Apt Bungalow","1","1",1700
+"79","Condo Apt Industrial Loft","1","1",4495
+"80","Condo Apt Industrial Loft","4","2",4500
+"81","Condo Apt Loft","1","1",2226.66666666667
+"82","Condo Apt Loft","1","2",2100
+"83","Condo Apt Loft","2","1",3092
+"84","Condo Apt Loft","2","2",3445.64285714286
+"85","Condo Apt Loft","3","2",3500
+"86","Condo Apt Loft","3","3",6250
+"87","Condo Apt Loft","3","4",4950
+"88","Condo Apt Loft","4","3",8495
+"89","Condo Apt Multi-Level","1","1",2052.5
+"90","Condo Apt Multi-Level","1","2",2480
+"91","Condo Apt Multi-Level","2","1",2505.38461538462
+"92","Condo Apt Multi-Level","2","2",3100
+"93","Condo Apt Multi-Level","3","2",2750
+"94","Condo Apt Multi-Level","4","3",6000
+"95","Condo Apt Other","1","2",2675
+"96","Condo Apt Stacked Townhse","2","1",2150
+"97","Condo Townhouse 2-Storey","1","1",2099
+"98","Condo Townhouse 2-Storey","2","1",2774.5
+"99","Condo Townhouse 2-Storey","2","2",2700
+"100","Condo Townhouse 2-Storey","2","3",2850
+"101","Condo Townhouse 2-Storey","3","2",2635
+"102","Condo Townhouse 2-Storey","3","3",5250
+"103","Condo Townhouse 2-Storey","4","3",5099.375
+"104","Condo Townhouse 2-Storey","4","4",5050
+"105","Condo Townhouse 2-Storey","5","3",3099
+"106","Condo Townhouse 3-Storey","1","1",800
+"107","Condo Townhouse 3-Storey","2","1",2275
+"108","Condo Townhouse 3-Storey","2","2",2576.9
+"109","Condo Townhouse 3-Storey","3","2",2710
+"110","Condo Townhouse 3-Storey","3","3",3898.33333333333
+"111","Condo Townhouse 3-Storey","3","4",3850
+"112","Condo Townhouse 3-Storey","4","3",3525
+"113","Condo Townhouse 3-Storey","4","4",15000
+"114","Condo Townhouse Apartment","1","1",2225
+"115","Condo Townhouse Apartment","2","1",2500
+"116","Condo Townhouse Apartment","2","2",2574.16666666667
+"117","Condo Townhouse Apartment","3","1",2350
+"118","Condo Townhouse Multi-Level","2","2",2750
+"119","Condo Townhouse Multi-Level","3","3",3500
+"120","Condo Townhouse Multi-Level","3","4",4450
+"121","Condo Townhouse Stacked Townhse","1","1",1992
+"122","Condo Townhouse Stacked Townhse","2","1",2175
+"123","Condo Townhouse Stacked Townhse","2","2",2616.42857142857
+"124","Condo Townhouse Stacked Townhse","2","3",2495
+"125","Condo Townhouse Stacked Townhse","3","1",2050
+"126","Condo Townhouse Stacked Townhse","3","2",2328.57142857143
+"127","Condo Townhouse Stacked Townhse","3","3",3575
+"128","Condo Townhouse Stacked Townhse","4","2",2500
+"129","Condo Townhouse Stacked Townhse","4","3",4500
+"130","Detached 1 1/2 Storey","1","1",1347.5
+"131","Detached 1 1/2 Storey","2","1",2180
+"132","Detached 1 1/2 Storey","2","2",1500
+"133","Detached 1 1/2 Storey","3","2",3180
+"134","Detached 1 1/2 Storey","3","3",4200
+"135","Detached 1 1/2 Storey","4","3",3950
+"136","Detached 2-Storey","1","1",1564.25
+"137","Detached 2-Storey","2","1",2532.125
+"138","Detached 2-Storey","2","2",2961.875
+"139","Detached 2-Storey","3","1",2262.63636363636
+"140","Detached 2-Storey","3","2",3560.9375
+"141","Detached 2-Storey","3","3",3960
+"142","Detached 2-Storey","3","4",8195
+"143","Detached 2-Storey","3","5",7500
+"144","Detached 2-Storey","4","2",3855.55555555556
+"145","Detached 2-Storey","4","3",5269.93333333333
+"146","Detached 2-Storey","4","4",4943.52941176471
+"147","Detached 2-Storey","4","5",5600
+"148","Detached 2-Storey","4","6",8800
+"149","Detached 2-Storey","4","7",11900
+"150","Detached 2-Storey","5","2",4465
+"151","Detached 2-Storey","5","3",3319.8
+"152","Detached 2-Storey","5","4",4813.88888888889
+"153","Detached 2-Storey","5","5",6792.85714285714
+"154","Detached 2-Storey","5","6",6150
+"155","Detached 2-Storey","5","7",12400
+"156","Detached 2-Storey","6","3",4950
+"157","Detached 2-Storey","6","4",4833.33333333333
+"158","Detached 2-Storey","6","5",5670
+"159","Detached 2-Storey","6","6",6700
+"160","Detached 2-Storey","6","7",7266.66666666667
+"161","Detached 2-Storey","7","3",3000
+"162","Detached 2-Storey","7","4",5500
+"163","Detached 2-Storey","7","5",5563
+"164","Detached 2-Storey","7","6",7366.66666666667
+"165","Detached 2-Storey","7","8",6800
+"166","Detached 2-Storey","8","7",7200
+"167","Detached 2 1/2 Storey","1","1",2250
+"168","Detached 2 1/2 Storey","2","1",1975
+"169","Detached 2 1/2 Storey","4","3",7550
+"170","Detached 2 1/2 Storey","4","4",4500
+"171","Detached 2 1/2 Storey","4","5",4000
+"172","Detached 2 1/2 Storey","5","2",5200
+"173","Detached 2 1/2 Storey","5","3",4450
+"174","Detached 2 1/2 Storey","5","4",5200
+"175","Detached 2 1/2 Storey","6","4",7900
+"176","Detached 2 1/2 Storey","6","5",7950
+"177","Detached 3-Storey","1","1",1950
+"178","Detached 3-Storey","2","1",2540
+"179","Detached 3-Storey","2","2",3900
+"180","Detached 3-Storey","3","2",4300
+"181","Detached 3-Storey","3","3",5500
+"182","Detached 3-Storey","4","4",4960
+"183","Detached 3-Storey","4","5",12000
+"184","Detached 3-Storey","5","2",5995
+"185","Detached 3-Storey","6","5",10500
+"186","Detached 3-Storey","7","5",11900
+"187","Detached Apartment","1","1",1760.625
+"188","Detached Apartment","2","1",2380.83333333333
+"189","Detached Apartment","3","1",2413.33333333333
+"190","Detached Apartment","3","2",4900
+"191","Detached Bachelor/Studio","1","1",1542.5
+"192","Detached Backsplit 3","2","2",1750
+"193","Detached Backsplit 3","3","1",2700
+"194","Detached Backsplit 3","4","3",3725
+"195","Detached Backsplit 4","1","1",1800
+"196","Detached Backsplit 4","3","2",2325
+"197","Detached Backsplit 4","5","4",4500
+"198","Detached Backsplit 5","3","2",2650
+"199","Detached Bungaloft","2","1",1450
+"200","Detached Bungalow","1","1",1440.90909090909
+"201","Detached Bungalow","2","1",2052.61904761905
+"202","Detached Bungalow","2","2",2703.57142857143
+"203","Detached Bungalow","3","1",2312.22727272727
+"204","Detached Bungalow","3","2",2543.21428571429
+"205","Detached Bungalow","3","3",4635
+"206","Detached Bungalow","4","1",2980
+"207","Detached Bungalow","4","2",3250
+"208","Detached Bungalow","4","3",4150
+"209","Detached Bungalow","4","4",6500
+"210","Detached Bungalow","5","2",3283
+"211","Detached Bungalow","5","3",4783.33333333333
+"212","Detached Bungalow","5","4",4700
+"213","Detached Bungalow","6","2",3000
+"214","Detached Bungalow","6","3",4600
+"215","Detached Bungalow-Raised","1","1",1512.5
+"216","Detached Bungalow-Raised","2","2",2150
+"217","Detached Bungalow-Raised","4","2",3048
+"218","Detached Bungalow-Raised","4","3",3800
+"219","Detached Bungalow-Raised","4","4",3000
+"220","Detached Bungalow-Raised","5","3",3999
+"221","Detached Other","1","1",1950
+"222","Detached Other","4","2",3500
+"223","Detached Other","5","5",6000
+"224","Detached Sidesplit 3","3","2",3533.33333333333
+"225","Detached Sidesplit 3","3","3",4500
+"226","Detached Sidesplit 3","4","2",2380
+"227","Detached Sidesplit 3","4","4",3300
+"228","Detached Sidesplit 3","5","4",3900
+"229","Detached Sidesplit 4","2","2",1750
+"230","Detached Sidesplit 4","3","2",2500
+"231","Detached Sidesplit 4","4","3",4300
+"232","Detached Sidesplit 5","5","5",4300
+"233","Duplex 2-Storey","1","1",1645
+"234","Duplex 2-Storey","2","1",2750
+"235","Duplex 2-Storey","2","2",3425
+"236","Duplex 2-Storey","3","1",3250
+"237","Duplex 2-Storey","3","2",4000
+"238","Duplex 2-Storey","3","3",3995
+"239","Duplex 2 1/2 Storey","1","1",1800
+"240","Duplex 2 1/2 Storey","2","1",2950
+"241","Duplex 2 1/2 Storey","3","1",3200
+"242","Duplex 2 1/2 Storey","3","2",6050
+"243","Duplex 3-Storey","2","1",2795
+"244","Duplex 3-Storey","3","2",4950
+"245","Duplex Apartment","3","1",2300
+"246","Duplex Bungalow","2","1",1950
+"247","Fourplex 1 1/2 Storey","2","2",3000
+"248","Fourplex 2-Storey","2","3",3500
+"249","Fourplex 2-Storey","4","3",4600
+"250","Fourplex 3-Storey","1","1",4500
+"251","Fourplex 3-Storey","2","1",2895
+"252","Fourplex 3-Storey","5","3",5895
+"253","Fourplex Apartment","1","1",1100
+"254","Fourplex Apartment","2","1",4462.5
+"255","Fourplex Apartment","3","1",2450
+"256","Lower Level 1 1/2 Storey","2","1",1500
+"257","Lower Level 2-Storey","1","1",1691.33333333333
+"258","Lower Level 2-Storey","2","1",2100
+"259","Lower Level 2 1/2 Storey","2","1",1400
+"260","Lower Level Apartment","1","1",1700
+"261","Lower Level Apartment","2","1",1875
+"262","Lower Level Bachelor/Studio","1","1",1000
+"263","Lower Level Backsplit 4","2","1",1800
+"264","Lower Level Bungalow","3","1",1850
+"265","Lower Level Bungalow-Raised","2","1",1650
+"266","Multiplex 2-Storey","2","1",2450
+"267","Multiplex 3-Storey","1","1",1672.5
+"268","Multiplex 3-Storey","2","2",2700
+"269","Multiplex 3-Storey","3","1",2800
+"270","Multiplex Apartment","1","1",1589.8
+"271","Multiplex Apartment","1","2",3975
+"272","Multiplex Apartment","2","1",2192
+"273","Multiplex Apartment","3","1",2650
+"274","Multiplex Bachelor/Studio","1","1",1495
+"275","Other 2-Storey","1","1",2995
+"276","Other 2-Storey","2","1",2800
+"277","Other 2-Storey","3","2",3800
+"278","Other 2-Storey","6","6",19500
+"279","Other Apartment","1","1",1908.5
+"280","Other Apartment","2","1",2223.58333333333
+"281","Other Apartment","2","2",3698.33333333333
+"282","Other Apartment","3","1",2550
+"283","Other Apartment","3","2",3403.625
+"284","Other Apartment","3","3",3300
+"285","Other Apartment","5","6",19500
+"286","Other Multi-Level","1","1",1875
+"287","Other Other","1","1",3200
+"288","Room 3-Storey","1","1",1500
+"289","Semi-Detached 1 1/2 Storey","1","2",1995
+"290","Semi-Detached 1 1/2 Storey","3","1",2150
+"291","Semi-Detached 2-Storey","1","1",1961.78571428571
+"292","Semi-Detached 2-Storey","2","1",2732.5
+"293","Semi-Detached 2-Storey","2","2",3350
+"294","Semi-Detached 2-Storey","3","1",3116.66666666667
+"295","Semi-Detached 2-Storey","3","2",3701.53846153846
+"296","Semi-Detached 2-Storey","3","3",3650
+"297","Semi-Detached 2-Storey","3","4",3000
+"298","Semi-Detached 2-Storey","4","2",3237.5
+"299","Semi-Detached 2-Storey","4","4",5350
+"300","Semi-Detached 2 1/2 Storey","1","1",2300
+"301","Semi-Detached 2 1/2 Storey","2","1",1900
+"302","Semi-Detached 2 1/2 Storey","3","1",2970
+"303","Semi-Detached 2 1/2 Storey","4","1",3500
+"304","Semi-Detached 2 1/2 Storey","4","2",4650
+"305","Semi-Detached 2 1/2 Storey","4","3",7800
+"306","Semi-Detached 2 1/2 Storey","4","4",4490
+"307","Semi-Detached 2 1/2 Storey","5","2",5000
+"308","Semi-Detached 3-Storey","1","1",2111
+"309","Semi-Detached 3-Storey","2","1",2495
+"310","Semi-Detached 3-Storey","2","2",4250
+"311","Semi-Detached 3-Storey","3","1",4600
+"312","Semi-Detached 3-Storey","3","4",10425
+"313","Semi-Detached 3-Storey","4","1",3800
+"314","Semi-Detached 3-Storey","4","2",4850
+"315","Semi-Detached 3-Storey","4","3",4600
+"316","Semi-Detached 3-Storey","4","5",22500
+"317","Semi-Detached 3-Storey","5","2",3235
+"318","Semi-Detached 3-Storey","5","4",6500
+"319","Semi-Detached 3-Storey","5","5",7000
+"320","Semi-Detached Apartment","1","1",1500
+"321","Semi-Detached Apartment","2","1",2365
+"322","Semi-Detached Apartment","3","1",3800
+"323","Semi-Detached Bachelor/Studio","1","1",1400
+"324","Semi-Detached Backsplit 3","4","3",3780
+"325","Semi-Detached Backsplit 5","1","1",750
+"326","Semi-Detached Backsplit 5","2","1",1480
+"327","Semi-Detached Bungalow","2","1",1600
+"328","Semi-Detached Bungalow","3","1",2200
+"329","Semi-Detached Bungalow","4","2",2850
+"330","Semi-Detached Bungalow-Raised","1","1",1725
+"331","Semi-Detached Bungalow-Raised","3","1",2133.33333333333
+"332","Semi-Detached Bungalow-Raised","4","2",3150
+"333","Semi-Detached Other","1","1",1250
+"334","Shared Room Apartment","1","3",1200
+"335","Store W/Apt/Offc 2-Storey","1","1",2500
+"336","Store W/Apt/Offc 2-Storey","2","1",2975
+"337","Store W/Apt/Offc 2-Storey","3","1",1695
+"338","Store W/Apt/Offc 2-Storey","3","2",3250
+"339","Store W/Apt/Offc 3-Storey","1","1",2500
+"340","Store W/Apt/Offc 3-Storey","3","1",2850
+"341","Store W/Apt/Offc Apartment","1","1",1650
+"342","Store W/Apt/Offc Apartment","2","1",2141.66666666667
+"343","Store W/Apt/Offc Apartment","3","3",3989
+"344","Store W/Apt/Offc Other","1","1",3500
+"345","Triplex 1 1/2 Storey","2","1",2150
+"346","Triplex 2-Storey","1","1",1800
+"347","Triplex 2-Storey","2","1",2250
+"348","Triplex 3-Storey","1","1",2500
+"349","Triplex 3-Storey","2","1",2625
+"350","Triplex 3-Storey","4","2",5950
+"351","Triplex Apartment","1","1",1295
+"352","Triplex Apartment","2","1",1999
+"353","Triplex Apartment","2","2",2975
+"354","Triplex Apartment","3","1",2475
+"355","Upper Level 2-Storey","2","1",2319
+"356","Upper Level 2-Storey","3","2",4950
+"357","Upper Level 3-Storey","2","1",2090
+"358","Upper Level 3-Storey","3","2",2995
+"359","Upper Level Apartment","1","1",1829.16666666667
+"360","Upper Level Apartment","2","1",2439.5
+"361","Upper Level Apartment","2","2",4966.33333333333
+"362","Upper Level Apartment","5","2",5600
+"363","Upper Level Bachelor/Studio","1","1",1650
+"364","Upper Level Backsplit 4","2","1",2050
+"365","Upper Level Backsplit 4","3","2",2900
+"366","Upper Level Other","2","1",2400
+"367","Upper Level Other","3","1",3600
