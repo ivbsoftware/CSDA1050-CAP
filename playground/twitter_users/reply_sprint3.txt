@@ -1,0 +1,20 @@
+Hi Ariana:
+
+Posted my reply in a text file on github. Also below. Let me know if you have any questions:
+
+
+Hi Ariana:
+
+Solid plan. Here is my suggestion: Boil down your questions (kind of broad and you won't be able to do all the of them in 2wks). Also, you should replicate/copy/go through the notebooks I posted on moodle (especially the series 1-13).
+
+Then, pick one and go. My recommendation is look into "topics" the "similar users" talk about. So essentially you're going to classify users into "groups" based on what they tweet about and/or follow.
+
+So you can look at this two ways. First, the "content approach" which is to say they (re)tweet similar stuff using NLP similarity measures and build a network. Second is, follower/friend relationships -
+that is do they follow/friend similar people. This becomes a more straight forward social-network analysis.
+
+Finally, one more option and building off some of the questions you had - perhaps do personality testing on user timelines and compare/analyze this as part of their friend/follower ratio.
+E.g., personality testing in python: https://github.com/SenticNet/personality-detection
+
+So there are a variety of research questions there, worth looking into.
+
+Matthew
