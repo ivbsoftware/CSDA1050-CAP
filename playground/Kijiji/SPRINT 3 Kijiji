@@ -1,3 +1,5 @@
+SPRINT 3 Kijiji
+==============================
 1. What I have done so far:
   1)   scrapyjiji.py   is the scraper, modified a little, dropped the useless notification function
   2)   main.py   in this code, I called the scraper and pass over the parameters, to create txt files.  
@@ -14,4 +16,9 @@
   6)  Main_scr_all_pages.py I wrote a loop, so it pass each AD web page url to Kijiji-Scraper_s.py, and then scrape web page data then save into All_Page_Data.txt
   7)  Insert_Table.py  This is the code I wrote to upload the csv values up to google cloud table (postgres).  This is the code I wrote for the second class, so it might not work with the new csv file I generated on 4).  I will debug it when I get time.
   
-  2. 
+  2. What I plan to do for SPRINT 3:
+    1) Convert address to geocode/geotag then insert into csv file as new column;
+    2) More data cleaning;
+    3) Drop my old table from google cloud and then insert my new data into MYSQL table;
+    4) Data analysis on Jupyter Notebook;
+    5) Discuss with Matthew, see if I can merge my data with Michael's
