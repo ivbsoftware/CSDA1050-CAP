@@ -88,6 +88,6 @@ df['datetime']=pd.to_datetime(df['datetime'])
 #df.to_csv('CL472019.csv',index=False)
 
 
-engine = sqlalchemy.create_engine("mssql+pyodbc://USER:PASSWORD!@DETSQL")
+engine = sqlalchemy.create_engine("mssql+pyodbc://USER:password@DETSQL")
 df.to_sql('CSDA1050_CL', con=engine, if_exists='append')
 

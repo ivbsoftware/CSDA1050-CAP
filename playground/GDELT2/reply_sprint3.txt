@@ -1,0 +1,16 @@
+Hi Igor:
+
+I suggest you look at some of the more advance NLP analysis I posted on the git hub account. That said, I think you should dig deeper into a more advanced method instead of going
+broad on a variety approach. For example, collect a month+ of data and see if you can "track" the shelf-life of a topic through time and if certain topics are more prevalent likely to
+"hang on" or "resurface" with any regularity.
+
+You should use something like Doc2Vec to train a model of document similarity and visuals their "attention decay" of a time period. I am thinking
+an Hans Rosling type visualization of topics over time. Reminder: https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?language=en
+
+Let me know if that makes sense and of course, you don't have to do what I suggest...
+
+Send any questions you might have.
+
+Cheers,
+Matthew
+
