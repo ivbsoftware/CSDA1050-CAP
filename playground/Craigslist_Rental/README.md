@@ -34,7 +34,7 @@
 	-Incorporate average income by neighborhood
 		census data from https://www12.statcan.gc.ca/wds-sdw/cpr2016-eng.cfm
 		census tract to postal code (https://www150.statcan.gc.ca/n1/en/catalogue/92-154-G) - though this seems to be a paid data source now, 
-		listing lat/lon to postalcode (need to find resource)
+		listing lat/lon to postalcode (need to find resource, maybe this: https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-catalogue/#f71a13c4-fb51-6116-57b7-1f51a8190585)
 	-build a model to see if rental price can be predicted given the factors;
 		-bedroom
 		-Lat/long
