@@ -8,5 +8,5 @@ It contains the following artifacts:
 
  - __News_Category_Dataset_v2.json__ is a list of 200K links of news articles from Haffington Post site taken from [Kaggle News Category Dataset](https://www.kaggle.com/rmisra/news-category-dataset).
  - __news-dataset.zip__ is a dataset containing cleaned tokenized articles from the source above.
- - __news-dataset-huffington.model__ is a Doc2Vec model trainen on 186,513 articles (those having more than 10 tokens).
+ - __news-dataset-huffington.model__ is a Doc2Vec model trained on 186,513 articles (those having more than 10 tokens).
  
