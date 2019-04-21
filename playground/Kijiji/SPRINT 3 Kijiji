@@ -17,8 +17,8 @@ SPRINT 3 Kijiji
   7)  Insert_Table.py  This is the code I wrote to upload the csv values up to google cloud table (postgres).  This is the code I wrote for the second class, so it might not work with the new csv file I generated on 4).  I will debug it when I get time.
   
   2. What I plan to do for SPRINT 3:
-    1) Convert address to geocode/geotag then insert into csv file as new column;
-    2) More data cleaning;
-    3) Drop my old table from google cloud and then insert my new data into MYSQL table;
+    1) Convert address to geocode/geotag then insert into csv file as new column;   Done by convert_geo.py
+    2) More data cleaning;                                                          Done by Convert_CSV2.py
+    3) Drop my old table from google cloud and then insert my new data into MYSQL table;   Done by Insert_Table.py
     4) Data analysis on Jupyter Notebook;
     5) Discuss with Matthew, see if I can merge my data with Michael's
