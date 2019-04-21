@@ -16,10 +16,9 @@ file = "data/news-dataset.txt"
 corpus = open(file, "r", encoding="utf8")
 lines = corpus.read().lower().split("\n")
 
-
 documents =[]
 for t in lines:
-    # get document tokent and label from the line
+    # parse document token and label from the line
     res = t.split('], [')
     doc = res[0].strip('\'][\'')
     doc = doc.split('\', \'')
