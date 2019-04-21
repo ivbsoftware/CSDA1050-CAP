@@ -3,7 +3,9 @@ import csv
 
 try:
     connection = psycopg2.connect(user='postgres', password='csda1050',
-                        host='/gcloudsql/river-howl-235515:us-east1:csda1050')
+                                  host="127.0.0.1",
+                                  port="5432",
+                                  database='postgres')
     cursor = connection.cursor()
     # Print PostgreSQL Connection properties
     print ( connection.get_dsn_parameters(),"\n")
@@ -16,11 +18,21 @@ try:
     create_table_query = '''CREATE TABLE gtarent_s
           (AD_ID        INT,
           TITLE         TEXT,
-          URL           TEXT,
           POSTDATE      Date, 
-          LOCATION      TEXT,
-          PRICE         TEXT); '''
-    #show_table = '''SELECT * FROM pg_catalog.pg_tables;'''
+          ADBEDROOMS      TEXT,
+          adbathrooms     TEXT,  
+          adsqft          TEXT,  
+          adfurnish       TEXT,  
+          adpet           TEXT,  
+          Description     TEXT,  
+          Province        TEXT,  
+          City            TEXT,  
+          Region          TEXT,  
+          Price           TEXT,  
+          Address         TEXT,  
+          Geolan          TEXT,  
+          Geolng          TEXT); '''
+    show_table = '''SELECT * FROM pg_catalog.pg_tables;'''
     #test='''select * from information_schema.tables;'''
     cursor.execute(drop_table)
     connection.commit()
@@ -36,11 +48,11 @@ try:
        print("Price  = ", row[2], "\n")
     #print("Table created successfully in PostgreSQL ")
 
-    with open('insert_rent_S.csv', newline='') as csvfile:
-        csv_data = csv.reader(csvfile, delimiter=';')
+    with open('data_all_set.csv', newline='',encoding='utf8') as csvfile:
+        csv_data = csv.reader(csvfile, delimiter=',')
         for row in csv_data:
             print(row)
-            cursor.execute('INSERT INTO gtarent_s(AD_ID,TITLE,URL,POSTDATE, LOCATION,PRICE ) VALUES (%s, %s, %s, %s, %s, %s)', row)
+            cursor.execute('INSERT INTO gtarent_s(AD_ID,TITLE,POSTDATE,ADBEDROOMS,adbathrooms,adsqft,adfurnish,adpet,Description,Province,City,Region,Price,Address,Geolan,Geolng ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', row)
     connection.commit()
     cursor.close()
 
