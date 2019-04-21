@@ -4,7 +4,8 @@ This folder contains code used to generate the presentation.
 ## Steps to reproduce
 Run the Python code in [gta-news](https://github.com/ivbsoftware/CSDA1050-CAP/tree/master/playground/GDELT3/gta-news/doc2vec) folder:
 
-1. Download, clean and tokenize the Haffington Post news corpus
+### Step 1
+Download, clean and tokenize the Haffington Post news corpus
 
 ```python
 python prepare_train_corpus.py 0 -1 0 
