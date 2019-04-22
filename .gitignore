@@ -22,3 +22,14 @@ playground/Craigslist_Rental/neighbourhoods_planning_areas_wgs84/NEIGHBORHOODS_W
 playground/Craigslist_Rental/neighbourhoods_planning_areas_wgs84/NEIGHBORHOODS_WGS84.shp
 playground/Craigslist_Rental/neighbourhoods_planning_areas_wgs84/NEIGHBORHOODS_WGS84.prj
 playground/Craigslist_Rental/neighbourhoods_planning_areas_wgs84/NEIGHBORHOODS_WGS84.dbf
+playground/GDELT3/gta-news/doc2vec/data/
+playground/GDELT3/gta-news/.idea/
+playground/GDELT3/data/
+playground/GDELT3/gta-news/doc2vec/__pycache__/
+playground/GDELT3/notebooks/.ipynb_checkpoints/
+playground/GDELT2/model5.gensim.state
+playground/GDELT2/model5.gensim.id2word
+playground/GDELT2/model5.gensim.expElogbeta.npy
+playground/GDELT2/dictionary.gensim
+playground/GDELT2/model5.gensim
+playground/GDELT2/corpus.pkl
