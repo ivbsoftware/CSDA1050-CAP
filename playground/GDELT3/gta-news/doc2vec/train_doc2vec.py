@@ -3,23 +3,14 @@ from gensim.models.doc2vec import TaggedDocument, Doc2Vec
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-class Documents(object):
-    def __init__(self, documents):
-        self.documents = documents
-
-    def __iter__(self):
-        for i, doc in enumerate(self.documents):
-            yield TaggedDocument(words = doc, tags = [i])
-
 file = "data/news-dataset.txt"
 
 corpus = open(file, "r", encoding="utf8")
 lines = corpus.read().lower().split("\n")
 
-
 documents =[]
 for t in lines:
-    # get document tokent and label from the line
+    # parse document token and label from the line
     res = t.split('], [')
     doc = res[0].strip('\'][\'')
     doc = doc.split('\', \'')
