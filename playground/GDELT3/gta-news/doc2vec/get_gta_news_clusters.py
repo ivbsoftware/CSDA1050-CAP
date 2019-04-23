@@ -8,7 +8,7 @@ import pandas as pd
 from nltk.corpus import stopwords
 import datetime
 
-NUM_CLUSTERS = 10
+NUM_CLUSTERS = 50
 
 # directories
 dir_path = os.getcwd()
@@ -79,6 +79,6 @@ assigned_clusters = kclusterer.cluster(vectors, assign_clusters=True)
 print ("Merge the file-based dataframes and serialize the dataframe")
 DF = pd.concat(DFlist)
 DF['cluster'] = assigned_clusters
-DF.to_pickle(local_path+'backup'+'-gta.2'+'.pickle')
+DF.to_pickle(local_path+'backup'+'-gta.50'+'.pickle')
 
 print("Done")
