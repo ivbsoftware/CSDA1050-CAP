@@ -22,7 +22,6 @@ playground/Craigslist_Rental/neighbourhoods_planning_areas_wgs84/NEIGHBORHOODS_W
 playground/Craigslist_Rental/neighbourhoods_planning_areas_wgs84/NEIGHBORHOODS_WGS84.shp
 playground/Craigslist_Rental/neighbourhoods_planning_areas_wgs84/NEIGHBORHOODS_WGS84.prj
 playground/Craigslist_Rental/neighbourhoods_planning_areas_wgs84/NEIGHBORHOODS_WGS84.dbf
-playground/GDELT3/gta-news/doc2vec/data/
 playground/GDELT3/gta-news/.idea/
 playground/GDELT3/data/
 playground/GDELT3/gta-news/doc2vec/__pycache__/
@@ -33,3 +32,10 @@ playground/GDELT2/model5.gensim.expElogbeta.npy
 playground/GDELT2/dictionary.gensim
 playground/GDELT2/model5.gensim
 playground/GDELT2/corpus.pkl
+playground/GDELT3/gta-news/doc2vec/data/gdelt-zips/
+playground/GDELT3/gta-news/doc2vec/data/gta-gdelt-corpus/
+playground/GDELT3/gta-news/doc2vec/data/gta-gdelt-data/
+playground/GDELT3/gta-news/doc2vec/data/tmp/
+playground/GDELT3/gta-news/doc2vec/data/todelete/
+playground/GDELT3/gta-news/doc2vec/data/news-dataset.txt
+playground/GDELT3/gta-news/doc2vec/data/news-dataset-huffington.model
