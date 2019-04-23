@@ -13,6 +13,8 @@ df = pd.read_pickle(local_path+'backup'+'-gta'+'.pickle')
 daily_clusters = df.groupby(['date','cluster'])['title']
 
 for name, group in daily_clusters:
-    print("Date: ", name[0])
+    print("\nDate: ", name[0])
     print("Cluster " + str(name[1]))
-    print(group)
+    for title in group:
+        t = title[0:-4]
+        print(">>> ", t)
