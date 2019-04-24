@@ -72,6 +72,12 @@ for active_file in files:
                 if random.random() > .5:
                     print(tokens[1:10])
 
+                #TODO:
+                # skip_terms =['toronto','canada','canadian','ontario']
+                # tokens = [word for word in tokens if word not in skip_terms and not word.isdigit()]
+                # add AvgTone and some other items
+                # use JSON ?
+
                 # save article record
                 if len(tokens) > 10:
                     line = str([tokens, [index], [article.title]]) + "\n"
