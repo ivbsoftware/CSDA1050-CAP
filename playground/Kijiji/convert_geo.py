@@ -16,7 +16,7 @@ def returnxy(address):
         #temp=address[0].to_string()
         if  not address[0] ==',':
             #location = geocoder.geolytica(address)
-            location=geocoder.google(address,key='AIzaSyBzI1rP3XysBtUOhtrCvmyABe_CnX2pfL0')
+            location=geocoder.google(address,key='removed')
             for feature in location.geojson['features']:
                 lat=feature["properties"]["lat"]
                 lng=feature["properties"]["lng"]
