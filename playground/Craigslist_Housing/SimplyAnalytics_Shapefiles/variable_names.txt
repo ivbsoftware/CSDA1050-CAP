@@ -1,0 +1,3 @@
+VALUE0	# Basics | Total Households, 2018
+VALUE1	# Basics | Total Population, 2018
+VALUE2	Households by Income (Current Year) | Median Household Income (Current Year $), 2018
