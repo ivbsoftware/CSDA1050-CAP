@@ -7,13 +7,19 @@ matplotlib.pyplot      geopandas      missingno
 psycopg2     scipy
 
 ##->  ETL and Data Gathering:
+
 ---scrapyjiji.py is the original scraper, downloaded from https://github.com/CRutkowski/Kijiji-Scraper. This scraper developed on library Beatifulsoup 4, it captured all AD url and general AD information from the Kijij url you pass to it. It does not capture all detailed data from individual Kiji AD webpages;
+
 ---main.py In this script, I call the scrapyjiji.py to download all AD urls and store them into txt file. Kijiji Rent does not has Categories, so I need to search the ADs by clicking on the tags on the search page. Such as 'One Bed room'. My code will create a txt file for each AD tag to store all AD urls.
+
 ---Kijiji-Scraper_s.py I modified the original scraper, rewrote the "ParseAd" function so it can scrape data from single AD web pages. It stores all data into a .txt file in dictionary format. It gather detailed data, such as AD postdate, address and number of bathrooms.
+
 ---Main_scr_all_pages.py.  This script calls Kijiji-Scraper_s.py to scrape all detailed AD data from the AD urls we gathered from main.py.  Due to Kijiji's span protection, Kijiji block my IP address when my requests reach 2000.  So I break down the total urls into smaller group, each group has about 2000 urls.  It store data in a few txt files.
 
 ##-> Transforming/Loading to DB
+
 --- Convert_CSV2.py  Read all the txt file that created from Main_scr_all_pages.py, append them into one dataframe file, drop duplicated on AD_ID, then store into a csv file.
+
 --- Insert_Table.py  Insert all data into a Postgres table, hosted on Google Cloud.
 
 ##-> EDA Notebook: Project.ipynb  data cleaning and data analysis
