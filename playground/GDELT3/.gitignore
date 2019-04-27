@@ -1,0 +1,11 @@
+gta-news/.idea/
+data/
+gta-news/doc2vec/__pycache__/
+notebooks/.ipynb_checkpoints/
+gta-news/doc2vec/data/gdelt-zips/
+gta-news/doc2vec/data/gta-gdelt-corpus/
+gta-news/doc2vec/data/gta-gdelt-data/
+gta-news/doc2vec/data/tmp/
+gta-news/doc2vec/data/todelete/
+gta-news/doc2vec/data/news-dataset.txt
+gta-news/doc2vec/data/news-dataset-huffington.model
