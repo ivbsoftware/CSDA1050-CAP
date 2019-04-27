@@ -20,7 +20,7 @@ The script also extracts the listings' body and title, then tokenizes the text. 
 
 This script then stores the cleaned dataset in a csv file to then be easily re-imported and used again. 
 
-Step 3 - Detailed Analysis
+### Step 3 - Detailed Analysis
 Run the Craigslist Detailed Analysis.ipynb script
 
 This script performs a geographical analysis of the listings using a map of toronto from the [Toronto Open Data Portal](https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-catalogue/#a45bd45a-ede8-730e-1abc-93105b2c439f). 
