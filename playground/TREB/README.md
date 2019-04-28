@@ -35,7 +35,7 @@ Analsis including :
 7) Summarize the Price with Bedrooms, Bathrooms and Look at Price Trend
 (See Summary_Beds_Baths.csv)
 
-8)Summarize the Price with Bedrooms and Look at Price Trend ( High level summary)
+8) Summarize the Price with Bedrooms and Look at Price Trend ( High level summary)
 (See Summary_Beds.csv)
 
 Project Modelling Analysis including:
