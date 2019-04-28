@@ -1,9 +1,14 @@
 #Kijiji_Rental
 ##-> Extraction from API
+
 requests      BeautifulSoup      datetime     time
+
 Sys              os                         re                geocode
+
 Csv              pandas                 psycopg2    numpy 
+
 matplotlib.pyplot      geopandas      missingno
+
 psycopg2     scipy
 
 ##->  ETL and Data Gathering:
