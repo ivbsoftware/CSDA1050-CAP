@@ -35,7 +35,8 @@ Analsis including :
 8)Summarize the Price with Bedrooms and Look at Price Trend ( High level summary)
 (See Summary_Beds.csv)
 
-Project Modelling Analysis Plan
+Project Modelling Analysis including:
+
 1) train dataset 80% , test dataset 20%
 2) decision tree model 
 3) Random Forest model with 500 trees
