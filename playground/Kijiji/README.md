@@ -1,3 +1,13 @@
+***************************
+In this class, by working on actual Kijiji data, I experienced the 'unformatted data' and had a lot of practicing on Pycharm.  
+
+  I) Previously, I have always been working with ERP (structured) data. They are welly structured and easy to clean and manage.  But when I was working with unstructured data, I realized it's really complicated to clean the data accurately and completely.  
+  
+  II) While working on the project, I got chance to work on popular Python libraries and Pycharm IDE.  Pycharm is an excellent Python IDE, has very strong debugging features and it really helped me to understand the structures of dataframs, serious, array, dictionary and teach me a way to access right data by using parameters.  I start to like this IDE and will practice on my own projects.
+
+  III) Google Cloud:  I have tried Oracle Cloud, AWS but this is my first time of trying Google Cloud.  Google cloud has very flexible trial policies, excellent hardware/VM environment and provide almost everything you need for managing business and analysis project.  Very interesting platform and I will do more research.
+  
+***************************
 #Kijiji_Rental
 ##-> Extraction from API
 
