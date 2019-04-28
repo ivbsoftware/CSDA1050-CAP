@@ -41,11 +41,13 @@ Project Modelling Analysis Plan
 4) Evaluate models: compare decision tree vs Random Forest model ( rmse or mae )
 5) Regression Model
 Model 1: Look at Price with Bedrooms and Bathrooms
-Model 2: Look at log(Price) with Bedrooms and Bathrooms 
-# To overcome heteroskedasiticity with building log(Price).
+Model 2: Look at log(Price) with Bedrooms and Bathrooms  (To overcome heteroskedasiticity with buiding log(Price).
 6) Evaluate models: compare Model1 vs Model 2, look at Adjusted R squared and p-value. 
-                                 compare rmse or mae 
+                    compare rmse or mae 
 7) write the formula for Regression Model
+
+
+Discuss project challenge.
 
 
 	
