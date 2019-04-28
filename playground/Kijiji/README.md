@@ -28,3 +28,6 @@ psycopg2     scipy
 --- Insert_Table.py  Insert all data into a Postgres table, hosted on Google Cloud.
 
 ##-> EDA Notebook: Project.ipynb  data cleaning and data analysis
+
+
+******* For details, please review:https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/Kijiji/GTA%20Affordable%20Housing%20-%20Kijiji%20Data%20Analysis.docx
