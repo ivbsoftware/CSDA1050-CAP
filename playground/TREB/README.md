@@ -27,11 +27,14 @@ Analsis including :
 3) Look into Price distribution related to Type , Bedrooms, Bathrooms
 4) Find Top 10 Type by the Number of Properties
 5)  Find Top 10 Type by the Average Price of Properties
+
 6) Summarize the Price with Type, Bedrooms, Bathrooms and Look at Price Trend 
      (see Summary_Type_Beds_Bath.csv)
      Look at one specific example: # Look the price trend in Type  “Detached 2-storey”
+
 7) Summarize the Price with Bedrooms, Bathrooms and Look at Price Trend
 (See Summary_Beds_Baths.csv)
+
 8)Summarize the Price with Bedrooms and Look at Price Trend ( High level summary)
 (See Summary_Beds.csv)
 
