@@ -6,10 +6,10 @@
 
 Pack pack;
 
-int n_start = 32;
+int n_start = 20;
 
 void setup() {
-  size(400, 200);
+  size(384, 216);
 
   noFill();
   strokeWeight(1.5);
@@ -33,8 +33,8 @@ class Pack {
 
   float border = 0;
 
-  float min_radius = 50;
-  float max_radius = 50;
+  float min_radius = 10;
+  float max_radius = 100;
 
   Pack(int n) {  
     initiate(n);
@@ -43,7 +43,9 @@ class Pack {
   void initiate(int n) {
     circles = new ArrayList<Circle>(); 
     for (int i = 0; i < n; i++) {
-      addCircle(new Circle(width/2, height/2));
+      float radius = (max_radius - min_radius)/n * (n-i);
+      float delta = (i%2==0?-1.:1.) * i * 10; 
+      addCircle(new Circle(width/2 + delta, height/2, radius));
     }
   }
 
@@ -58,7 +60,6 @@ class Pack {
 
     for (int i=0; i<circles.size(); i++) {
       checkBorders(i);
-      updateCircleRadius(i);
       applySeparationForcesToCircle(i, separate_forces, near_circles);
       displayCircle(i);
     }
@@ -74,10 +75,6 @@ class Pack {
       circle_i.position.y = circle_i.radius/2 + border;
     else if (circle_i.position.y+circle_i.radius/2 > height - border)
       circle_i.position.y = height - circle_i.radius/2 - border;
-  }
-
-  void updateCircleRadius(int i) {
-    circles.get(i).updateRadius(min_radius, max_radius);
   }
 
   void applySeparationForcesToCircle(int i, PVector[] separate_forces, int[] near_circles) {
@@ -150,13 +147,13 @@ class Circle {
   PVector position;
   PVector velocity;
   PVector acceleration;
+  float radius;
 
-  float radius = 1;
-
-  Circle(float x, float y) {
+  Circle(float x, float y, float radius) {
     acceleration = new PVector(0, 0);
     velocity = PVector.random2D();
     position = new PVector(x, y);
+    this.radius = radius;
   }
 
   void applyForce(PVector force) {
@@ -170,20 +167,11 @@ class Circle {
     acceleration.mult(0);
   }
 
-  void updateRadius(float min, float max) {
-    //radius = min + noise(position.x*0.01, position.y*0.01) * (max-min);
-    radius = max;
-  }
-
   void display() {
     ellipse(position.x, position.y, radius, radius);
   }
 }
 
-void mouseDragged() {
-  pack.addCircle(new Circle(mouseX, mouseY));
-}
-
 void mouseClicked() {
-  pack.addCircle(new Circle(mouseX, mouseY));
+  pack.addCircle(new Circle(mouseX, mouseY, 50));
 }
