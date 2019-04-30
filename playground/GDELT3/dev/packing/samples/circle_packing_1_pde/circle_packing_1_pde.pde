@@ -32,6 +32,115 @@ void draw() {
   //saveFrame("frames/#####.tif");
 }
 
+public class PVector {
+  public float x;
+  public float y;
+  public float z;
+  
+  public PVector() {}
+  
+  public PVector(float x, float y) {
+    this.x = x;
+    this.y = y;
+  }
+  public PVector(float x, float y, float z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+
+  public float mag() {
+    return (float) Math.sqrt(x*x + y*y + z*z);
+  }
+  
+  public PVector add(PVector v) {
+    x += v.x;
+    y += v.y;
+    z += v.z;
+    return this;
+  }
+
+  public PVector add(float x, float y) {
+    this.x += x;
+    this.y += y;
+    return this;
+  }
+
+  public PVector sub(PVector v) {
+    x -= v.x;
+    y -= v.y;
+    z -= v.z;
+    return this;
+  }
+  
+  public PVector div(float n) {
+    x /= n;
+    y /= n;
+    z /= n;
+    return this;
+  } 
+  
+  public PVector setMag(float len) {
+    normalize();
+    mult(len);
+    return this;
+  }
+  public PVector normalize() {
+    float m = mag();
+    if (m != 0 && m != 1) {
+      div(m);
+    }
+    return this;
+  }  
+  public PVector mult(float n) {
+    x *= n;
+    y *= n;
+    z *= n;
+    return this;
+  }
+  public PVector limit(float max) {
+    if (magSq() > max*max) {
+      normalize();
+      mult(max);
+    }
+    return this;
+  }
+  
+  public float magSq() {
+    return (x*x + y*y + z*z);
+  }
+  public PVector set(float x, float y, float z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    return this;
+  }
+}
+
+  static public float dist(PVector v1, PVector v2) {
+    float dx = v1.x - v2.x;
+    float dy = v1.y - v2.y;
+    float dz = v1.z - v2.z;
+    return (float) Math.sqrt(dx*dx + dy*dy + dz*dz);
+  }
+  
+  static public PVector sub(PVector v1, PVector v2) {
+    return sub(v1, v2, null);
+  }
+
+  static public PVector sub(PVector v1, PVector v2, PVector target) {
+    PVector ret = null;
+    if (target == null) {
+      ret = new PVector(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+    } else {
+      target.set(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+      ret = target;
+    }
+    return target;
+  }
+  
+//--------------------------------------------------------------------------------
+
 
 class Pack {
   ArrayList<Circle> circles;
@@ -134,7 +243,7 @@ class Pack {
 
   PVector getSeparationForce(Circle n1, Circle n2) {
     PVector steer = new PVector(0, 0, 0);
-    float d = PVector.dist(n1.position, n2.position);
+    float d = dist(n1.position, n2.position);
     if ((d > 0) && (d < n1.radius/2+n2.radius/2 + border)) {
       PVector diff = PVector.sub(n1.position, n2.position);
       diff.normalize();
@@ -147,33 +256,6 @@ class Pack {
   String getSaveName() {
     return  day()+""+hour()+""+minute()+""+second();
   }
-
-/*
-  void exportDXF() {
-    String exportName = getSaveName()+".dxf";
-    RawDXF dxf = (RawDXF)createGraphics(width, height, DXF, exportName);
-    dxf.beginDraw();
-    for (int i=0; i<circles.size(); i++) {
-      Circle p = circles.get(i);
-      dxfCircle(p.position.x, p.position.y, p.radius/2., dxf);
-    }
-    dxf.endDraw();
-    dxf.dispose();
-    dxf.endRaw();
-
-    println(exportName + " saved.");
-  } 
-  void dxfCircle(float x, float y, float r, RawDXF dxf) {
-    dxf.println("0");
-    dxf.println("CIRCLE");
-    dxf.println("10");
-    dxf.println(Float.toString(x));
-    dxf.println("20");
-    dxf.println(Float.toString(height - y));
-    dxf.println("40");
-    dxf.println(Float.toString(r));
-  }
-*/
 
   void exportSVG() {
     String exportName = getSaveName()+".svg";
@@ -235,20 +317,3 @@ void mouseDragged() {
 void mouseClicked() {
   pack.addCircle(new Circle(mouseX, mouseY));
 }
-
-/*
-void keyPressed() {
-  if (key == 'r' || key == 'R') {
-    pack.initiate(n_start);
-    noiseSeed((long)random(100000));
-  } else if (key == 'p' || key == 'P') {
-    growing=!growing;
-  } else if (key == 's' || key == 'S') {
-    String name = ""+day()+hour()+minute()+second();
-    pack.exportDXF();
-    pack.exportSVG();
-    saveFrame(name+".png");
-    println(name + " saved.");
-  }
-}
-*/
