@@ -1,84 +1,138 @@
-//import processing.dxf.*;
-//import processing.svg.*;
+// Inspired by https://github.com/zmorph/codeplastic/blob/master/circle_packing/circle_packing.pde
+// To run in Processing IDE
 
-// Borrowed from https://github.com/zmorph/codeplastic/blob/master/circle_packing/circle_packing.pde
-// To run with Processing
+int n_circles = 36;
+float border = 0;
+float min_radius = 20;
+float max_radius = 100;
+
+int canvasWidth = 1000;
+int canvasHeight = 600;
 
 Pack pack;
 
-int n_start = 20;
-
-void setup() {
-  size(384, 216);
-
-  noFill();
-  strokeWeight(1.5);
-  stroke(5);
-
-  noiseDetail(2, 0.1);
-
-  pack = new Pack(n_start);
-}
-
+// Main
 void draw() {
   background(#f5f4f4);
   pack.run();
 }
 
-class Pack {
-  ArrayList<Circle> circles;
+void setup() {
+  size(1000, 600); //no variables allowed!
+  noFill();
+  strokeWeight(1.5);
+  stroke(5);
+  noiseDetail(2, 0.1);
 
-  float max_speed = 1;
-  float max_force = 1;
+  ArrayList<Circle> circles = initiateCircles(n_circles);
+  pack = new Pack(circles, new SimpleBoxStrategy());
+}
 
-  float border = 0;
-
-  float min_radius = 10;
-  float max_radius = 100;
-
-  Pack(int n) {  
-    initiate(n);
+ArrayList<Circle> initiateCircles (int n) {
+  ArrayList<Circle> circles = new ArrayList<Circle>(); 
+  for (int i = 0; i < n; i++) {
+    float radius = min_radius + (max_radius - min_radius)/n * (n-i);
+    float delta = (i%2==0?-1.:1.) * i * 10; 
+    circles.add(new Circle(width/2 + delta, height/2, radius));
   }
+  
+  return circles;
+}
 
-  void initiate(int n) {
-    circles = new ArrayList<Circle>(); 
-    for (int i = 0; i < n; i++) {
-      float radius = (max_radius - min_radius)/n * (n-i);
-      float delta = (i%2==0?-1.:1.) * i * 10; 
-      addCircle(new Circle(width/2 + delta, height/2, radius));
+interface RunStrategy {
+  void run(Pack pack);
+}
+
+public class SimpleBoxStrategy implements RunStrategy {
+  long iteration = 0;
+  
+  void run(Pack pack) {
+    
+    float w = 0;//600;
+    float h = 0;//300;
+    
+    
+    pack.setBoxHeight(h);
+    pack.setBoxWidth(w);
+    
+    // draw box    
+    noFill();
+    stroke(200);
+    rect((canvasWidth-w)/2, (canvasHeight-h)/2,w,h);
+    
+    PVector[] separate_forces = new PVector[pack.circles.size()];
+    int[] near_circles = new int[pack.circles.size()];
+    
+    if (++iteration >= 500) {
+      println("stopped");
+      stop();
+    }
+    
+    //println("iteration " + iteration);
+    
+    for (int i=0; i < pack.circles.size(); i++) {
+      pack.checkBorders(i);
+      pack.applySeparationForcesToCircle(i, separate_forces, near_circles);
+      pack.displayCircle(i);
     }
   }
+}
 
-  void addCircle(Circle b) {
-    circles.add(b);
+
+/**
+  Pack class
+**/
+public class Pack {
+  private ArrayList<Circle> circles;
+  private RunStrategy strategy;
+  private float max_speed = 1;
+  private float max_force = 1;
+  private float border;
+  
+  // borders
+  private float left;
+  private float right;
+  private float up;
+  private float down;
+
+  public Pack(ArrayList<Circle> circles, RunStrategy strategy) {
+    this.strategy = strategy;
+    this.circles = circles;
+  }
+  
+  public void setBoxWidth(float val) {
+    if (val <= 0) val = canvasWidth;
+    left = (width - val)/2 + border;
+    right = left + val - 2*border;
+  }
+  
+  public void setBoxHeight(float val) {
+    if (val <= 0) val = canvasHeight;
+    down = (height - val)/2 + border;
+    up = down + val - 2*border;
+  }
+  
+  private void run() {
+    strategy.run(this);
   }
 
-  void run() {
-
-    PVector[] separate_forces = new PVector[circles.size()];
-    int[] near_circles = new int[circles.size()];
-
-    for (int i=0; i<circles.size(); i++) {
-      checkBorders(i);
-      applySeparationForcesToCircle(i, separate_forces, near_circles);
-      displayCircle(i);
-    }
-  }
-
-  void checkBorders(int i) {
+  private void checkBorders(int i) {
+    
     Circle circle_i=circles.get(i);
-    if (circle_i.position.x-circle_i.radius/2 < border)
-      circle_i.position.x = circle_i.radius/2 + border;
-    else if (circle_i.position.x+circle_i.radius/2 > width - border)
-      circle_i.position.x = width - circle_i.radius/2 - border;
-    if (circle_i.position.y-circle_i.radius/2 < border)
-      circle_i.position.y = circle_i.radius/2 + border;
-    else if (circle_i.position.y+circle_i.radius/2 > height - border)
-      circle_i.position.y = height - circle_i.radius/2 - border;
+    
+    if (circle_i.position.x-circle_i.radius/2 < left)
+      circle_i.position.x = circle_i.radius/2 + left;
+    else if (circle_i.position.x+circle_i.radius/2 > right)
+      circle_i.position.x = right - circle_i.radius/2;
+    if (circle_i.position.y-circle_i.radius/2 < down)
+      circle_i.position.y = circle_i.radius/2 + down;
+    else if (circle_i.position.y+circle_i.radius/2 > up)
+      circle_i.position.y = up - circle_i.radius/2;
   }
 
-  void applySeparationForcesToCircle(int i, PVector[] separate_forces, int[] near_circles) {
-
+  private void applySeparationForcesToCircle(
+    int i, PVector[] separate_forces, int[] near_circles)
+  {
     if (separate_forces[i]==null)
       separate_forces[i]=new PVector();
 
@@ -121,7 +175,7 @@ class Pack {
     circle_i.velocity.y = 0.0;
   }
 
-  PVector getSeparationForce(Circle n1, Circle n2) {
+  private PVector getSeparationForce(Circle n1, Circle n2) {
     PVector steer = new PVector(0, 0, 0);
     float d = PVector.dist(n1.position, n2.position);
     if ((d > 0) && (d < n1.radius/2+n2.radius/2 + border)) {
@@ -133,15 +187,15 @@ class Pack {
     return steer;
   }
 
-  String getSaveName() {
-    return  day()+""+hour()+""+minute()+""+second();
-  }
-
-  void displayCircle(int i) {
+  private void displayCircle(int i) {
     circles.get(i).display();
   }
 }
 
+
+/*
+  Circle class
+*/
 class Circle {
 
   PVector position;
@@ -168,10 +222,9 @@ class Circle {
   }
 
   void display() {
+    //fill(255, 200, 200);
+    fill(255);
+    stroke(100);
     ellipse(position.x, position.y, radius, radius);
   }
-}
-
-void mouseClicked() {
-  pack.addCircle(new Circle(mouseX, mouseY, 50));
 }
