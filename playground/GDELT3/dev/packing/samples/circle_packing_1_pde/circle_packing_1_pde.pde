@@ -32,7 +32,7 @@ ArrayList<Circle> initiateCircles (int n) {
   ArrayList<Circle> circles = new ArrayList<Circle>(); 
   for (int i = 0; i < n; i++) {
     float radius = min_radius + (max_radius - min_radius)/n * (n-i);
-    float delta = (i%2==0?-1.:1.) * i * 10; 
+    float delta = (i%2==0?-1.:1.) * i * 15; 
     circles.add(new Circle(width/2 + delta, height/2, radius));
   }
   
@@ -48,8 +48,8 @@ public class SimpleBoxStrategy implements RunStrategy {
   
   void run(Pack pack) {
     
-    float w = 0;//600;
-    float h = 0;//300;
+    float w = 600;
+    float h = 280;
     
     
     pack.setBoxHeight(h);
@@ -63,19 +63,28 @@ public class SimpleBoxStrategy implements RunStrategy {
     PVector[] separate_forces = new PVector[pack.circles.size()];
     int[] near_circles = new int[pack.circles.size()];
     
-    if (++iteration >= 500) {
-      println("stopped");
+    if (++iteration >= 1000) {
+      println("stopped after 1000 iterations");
       stop();
     }
     
     //println("iteration " + iteration);
     
+    boolean forced = false;
     for (int i=0; i < pack.circles.size(); i++) {
       pack.checkBorders(i);
-      pack.applySeparationForcesToCircle(i, separate_forces, near_circles);
+      if (pack.applySeparationForcesToCircle(i, separate_forces, near_circles)) {
+        forced = true;
+      }
       pack.displayCircle(i);
     }
+    
+    if (!forced) {
+      println("stopped...");
+      stop();
+    }
   }
+  
 }
 
 
@@ -130,9 +139,11 @@ public class Pack {
       circle_i.position.y = up - circle_i.radius/2;
   }
 
-  private void applySeparationForcesToCircle(
+  private boolean applySeparationForcesToCircle(
     int i, PVector[] separate_forces, int[] near_circles)
   {
+    boolean forced = false;
+    
     if (separate_forces[i]==null)
       separate_forces[i]=new PVector();
 
@@ -148,6 +159,7 @@ public class Pack {
       PVector forceij = getSeparationForce(circle_i, circle_j);
 
       if (forceij.mag()>0) {
+        forced = true;
         separate_forces[i].add(forceij);        
         separate_forces[j].sub(forceij);
         near_circles[i]++;
@@ -160,6 +172,7 @@ public class Pack {
     }
 
     if (separate_forces[i].mag() >0) {
+      forced = true;
       separate_forces[i].setMag(max_speed);
       separate_forces[i].sub(circles.get(i).velocity);
       separate_forces[i].limit(max_force);
@@ -173,6 +186,8 @@ public class Pack {
     // If they have no intersecting neighbours they will stop moving
     circle_i.velocity.x = 0.0;
     circle_i.velocity.y = 0.0;
+    
+    return forced;
   }
 
   private PVector getSeparationForce(Circle n1, Circle n2) {
