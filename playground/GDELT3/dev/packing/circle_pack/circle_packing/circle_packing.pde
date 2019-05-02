@@ -1,5 +1,3 @@
-import processing.svg.*;
-
 // Inspired by https://github.com/zmorph/codeplastic/blob/master/circle_packing/circle_packing.pde
 // To run in Processing IDE
 
@@ -9,18 +7,112 @@ float border = 0;
 float min_radius = 20;
 float max_radius = 100;
 
+float radiusScale = 10;
+
 int canvasWidth = 1000;
 int canvasHeight = 600;
 
-Pack pack;
+//Pack pack;
+Table table;  
+SequencePacker sequencePacker = new SequencePacker(table);
+
 
 // Main
 void draw() {
   background(#f5f4f4);
-  pack.run();
+  sequencePacker.run();
+}
+
+
+
+// processing
+class SequencePacker {
+  Table data;
+  Pack curPack;
+  int frameNum;
+  ArrayList<ArrayList<Circle>> frameCirclesArr;
+
+  SequencePacker(Table data) {
+    this.data = data;
+  }
+  
+  void init() {
+    // get circles for each frame
+    frameCirclesArr = new ArrayList<ArrayList<Circle>>();
+    ArrayList<Circle> circles = null; 
+    int curDay = -1;
+    int i = 0;
+    for (TableRow row : table.rows()) {
+      //String date = row.getString("date");
+      //int cluster = row.getInt("cluster");
+      int count = row.getInt("count");
+      int day = row.getInt("day");
+      
+      // new day
+      if (day != curDay) {
+        println("....Day: " + day);
+        i = 0;
+        curDay = day;
+        circles = new ArrayList<Circle>();
+        frameCirclesArr.add(circles);
+      }
+      
+      float radius = radiusScale * count;
+      float delta = (i%2==0?-1.:1.) * i * 5; 
+      circles.add(new Circle(width/2 + delta, height/2, radius));
+      i++;
+    }  
+    
+    curPack = new Pack();
+    if(!nextFrame()) {
+      println("...stopped");
+      stop();
+    }
+  }
+  
+  boolean nextFrame() {
+    boolean ret = false;
+    if (frameNum < 2) {
+      println("...starting frame: " + frameNum);
+      frameNum++;
+      curPack.setStrategy(new SimpleBoxStrategy());
+      curPack.setCircles(initiateCircles(n_circles));
+      ret = true;
+    }
+    return ret;
+  }
+  
+  void run() {
+    if (curPack == null) {
+      init();
+    }
+
+    int ret = curPack.run();
+    if (ret != 0) {
+      if(!nextFrame()) {
+        println("...stopped");
+        stop();
+      }
+    }
+  }
+  
+  ArrayList<Circle> initiateCircles (int n) {
+    ArrayList<Circle> circles = new ArrayList<Circle>(); 
+    for (int i = 0; i < n; i++) {
+      float radius = min_radius + (max_radius - min_radius)/n * (n-i);
+      float delta = (i%2==0?-1.:1.) * i * 15; 
+      circles.add(new Circle(width/2 + delta, height/2, radius));
+    }
+    
+    return circles;
+  }
+
 }
 
 void setup() {
+  table = loadTable("../packing_input.csv", "header");
+  println(table.getRowCount() + " total rows in table"); 
+  
   size(1000, 600); //no variables allowed!
   noFill();
   strokeWeight(1.5);
@@ -29,8 +121,6 @@ void setup() {
   randomSeed(11);
   //noiseDetail(2, 0.1);
 
-  ArrayList<Circle> circles = initiateCircles(n_circles);
-  pack = new Pack(circles, new SimpleBoxStrategy());
 }
 
 ArrayList<Circle> initiateCircles (int n) {
@@ -44,14 +134,15 @@ ArrayList<Circle> initiateCircles (int n) {
   return circles;
 }
 
+
 interface RunStrategy {
-  void run(Pack pack);
+  int run(Pack pack);
 }
 
 public class SimpleBoxStrategy implements RunStrategy {
   long iteration = 0;
   
-  void run(Pack pack) {
+  int run(Pack pack) {
     
     float w = 600;
     float h = 280;
@@ -70,7 +161,7 @@ public class SimpleBoxStrategy implements RunStrategy {
     
     if (++iteration >= 1000) {
       println("stopped: max iterations reached: " +  1000);
-      stop();
+      return -1;
     }
     
     //println("iteration " + iteration);
@@ -86,8 +177,10 @@ public class SimpleBoxStrategy implements RunStrategy {
     
     if (!forced) {
       println("success after " + iteration + " iterations");
-      stop();
+      return 1;
     }
+    
+    return 0; //not finished
   }
   
 }
@@ -109,8 +202,11 @@ public class Pack {
   private float up;
   private float down;
 
-  public Pack(ArrayList<Circle> circles, RunStrategy strategy) {
+  public void setStrategy(RunStrategy strategy) {
     this.strategy = strategy;
+  }
+
+  public void setCircles(ArrayList<Circle> circles) {
     this.circles = circles;
   }
   
@@ -126,8 +222,8 @@ public class Pack {
     up = down + val - 2*border;
   }
   
-  private void run() {
-    strategy.run(this);
+  public int run() {
+    return strategy.run(this);
   }
 
   private void checkBorders(int i) {
@@ -207,26 +303,8 @@ public class Pack {
     return steer;
   }
 
-  // Utilities
-  void exportSVG() {
-      String exportName = getSaveName()+".svg";
-      PGraphics pg = createGraphics(width, height, SVG, exportName);
-      pg.beginDraw();
-      pg.rect(0, 0, width, height);
-      for (int i=0; i<circles.size(); i++) {
-        Circle p = circles.get(i);
-        pg.ellipse(p.position.x, p.position.y, p.radius, p.radius);
-      } 
-      pg.endDraw();
-      pg.dispose();
-      println(exportName + " saved.");
-    }
-  
   void displayCircle(int i) {
     circles.get(i).display();
-  }
-  String getSaveName() {
-    return  day()+""+hour()+""+minute()+""+second();
   }
   
 }
@@ -265,24 +343,5 @@ class Circle {
     fill(255);
     stroke(100);
     ellipse(position.x, position.y, radius, radius);
-  }
-}
-
-
-
-void keyPressed() {
-  //if (key == 'r' || key == 'R') {
-  //  pack.initiate(n_start);
-  //  noiseSeed((long)random(100000));
-  //} else if (key == 'p' || key == 'P') {
-  //  growing=!growing;
-  //} else 
-
-  println("Saved");
-  if (key == 's' || key == 'S') {
-    String name = ""+day()+hour()+minute()+second();
-    pack.exportSVG();
-    //saveFrame(name+".png");
-    println(name + " saved.");
   }
 }
