@@ -1,31 +1,45 @@
 // Inspired by https://github.com/zmorph/codeplastic/blob/master/circle_packing/circle_packing.pde
 // To run in Processing IDE
 
-
-int n_circles = 36;
 float border = 0;
-float min_radius = 20;
-float max_radius = 100;
 
-float radiusScale = 10;
+int canvasWidth = 1778;
+int canvasHeight = 1000;
 
-int canvasWidth = 1000;
-int canvasHeight = 600;
+float minRadius = 50;
+float maxRadius = 700;
+
+// stop process controls
+int maxIterations = 1000;
+int checkIteration = 50;
+float minShiftAtCheck = 25;
 
 //Pack pack;
 Table table;  
 SequencePacker sequencePacker = new SequencePacker(table);
 
+void setup() {
+  table = loadTable("../packing_input.csv", "header");
+  println(table.getRowCount() + " total rows in table"); 
+  
+  size(1778, 1000); //no variables allowed!
+  noFill();
+  strokeWeight(1.5);
+  stroke(5);
+  smooth();
+  randomSeed(11);
+  //noiseDetail(2, 0.1);
 
-// Main
+}
+
+// Main entry
 void draw() {
   background(#f5f4f4);
   sequencePacker.run();
 }
 
 
-
-// processing
+// processing class
 class SequencePacker {
   Table data;
   Pack curPack;
@@ -34,9 +48,27 @@ class SequencePacker {
 
   SequencePacker(Table data) {
     this.data = data;
-  }
+  }  
   
   void init() {
+    frameNum = -1;
+    //Calculate real min/max radii
+    float minCurRad = 0;
+    float maxCurRad = 0;
+    for (TableRow row : table.rows()) {
+      int count = row.getInt("count");
+      if (minCurRad > 0 && minCurRad > count) {
+        minCurRad = count;
+      }
+      if (maxCurRad < count) {
+        maxCurRad = count;
+      }
+    }
+    println("...Counts: min=" + minCurRad + ", max=" + maxCurRad);
+    
+    // scale
+    float radScale = (maxRadius - minRadius)/(maxCurRad - minCurRad);
+    
     // get circles for each frame
     frameCirclesArr = new ArrayList<ArrayList<Circle>>();
     ArrayList<Circle> circles = null; 
@@ -57,9 +89,13 @@ class SequencePacker {
         frameCirclesArr.add(circles);
       }
       
-      float radius = radiusScale * count;
-      float delta = (i%2==0?-1.:1.) * i * 5; 
-      circles.add(new Circle(width/2 + delta, height/2, radius));
+      float radius = minRadius + radScale * count;
+      if (count <= 0) {
+        radius = minRadius/100;
+      }
+      
+      PVector offset = getSpiralOffset(i, width/2, height/2, height/5, 50, -5, 0);
+      circles.add(new Circle(offset.x, offset.y, radius));
       i++;
     }  
     
@@ -70,13 +106,59 @@ class SequencePacker {
     }
   }
   
+  // Get coordinate of the point on a spiral
+  // i - point number
+  // centerX-- X origin of the spiral.
+  // centerY-- Y origin of the spiral.
+  // radius--- Distance from origin to outer arm.
+  // sides---- Number of points or sides along the spiral's arm.
+  // coils---- Number of coils or full rotations. (Positive numbers spin clockwise, negative numbers spin counter-clockwise)
+  // rotation- Overall rotation of the spiral. ('0'=no rotation, '1'=360 degrees, '180/360'=180 degrees)
+  PVector getSpiralOffset(int i, float centerX, float centerY, float radius, float sides, float coils, float rotation) {
+    float awayStep = radius/sides;              // How far to step away from center for each side.
+    float aroundStep = coils/sides;             // How far to rotate around center for each side.
+    float aroundRadians = aroundStep * TWO_PI;  //Convert aroundStep to radians.
+    rotation *= TWO_PI;                         // Convert rotation to radians.
+    float away = i * awayStep;                  // How far away from center
+    float around = i * aroundRadians + rotation;// How far around the center.
+    
+    return new PVector(centerX + cos(around) * away, centerY + sin(around) * away);
+  } 
+  
+  ArrayList<Circle> getNextCirclesSet() {
+    int len = frameCirclesArr.size();
+    if (frameNum >= len) {
+      return null;
+    }
+    return frameCirclesArr.get(frameNum);
+  }
+  
+  // Frame management
   boolean nextFrame() {
     boolean ret = false;
-    if (frameNum < 2) {
-      println("...starting frame: " + frameNum);
-      frameNum++;
+    
+    if (frameNum >= 0) {
+      println("...  finished frame: " + frameNum);
+     //TODO 
+    }
+
+    // next frames
+    frameNum++;
+    ArrayList<Circle> circles = getNextCirclesSet();
+    if (circles != null) {
       curPack.setStrategy(new SimpleBoxStrategy());
-      curPack.setCircles(initiateCircles(n_circles));
+      
+      ArrayList<Circle> curCircles = curPack.circles; 
+      if (curCircles == null) {
+        //set first day circles
+        curPack.setCircles(circles);
+      } else {
+        // just update the radii
+        for (int i=0; i < curCircles.size(); i++) {
+          curCircles.get(i).radius = circles.get(i).radius;
+        }
+      }
+      
       ret = true;
     }
     return ret;
@@ -95,45 +177,7 @@ class SequencePacker {
       }
     }
   }
-  
-  ArrayList<Circle> initiateCircles (int n) {
-    ArrayList<Circle> circles = new ArrayList<Circle>(); 
-    for (int i = 0; i < n; i++) {
-      float radius = min_radius + (max_radius - min_radius)/n * (n-i);
-      float delta = (i%2==0?-1.:1.) * i * 15; 
-      circles.add(new Circle(width/2 + delta, height/2, radius));
-    }
-    
-    return circles;
-  }
-
-}
-
-void setup() {
-  table = loadTable("../packing_input.csv", "header");
-  println(table.getRowCount() + " total rows in table"); 
-  
-  size(1000, 600); //no variables allowed!
-  noFill();
-  strokeWeight(1.5);
-  stroke(5);
-  smooth();
-  randomSeed(11);
-  //noiseDetail(2, 0.1);
-
-}
-
-ArrayList<Circle> initiateCircles (int n) {
-  ArrayList<Circle> circles = new ArrayList<Circle>(); 
-  for (int i = 0; i < n; i++) {
-    float radius = min_radius + (max_radius - min_radius)/n * (n-i);
-    float delta = (i%2==0?-1.:1.) * i * 15; 
-    circles.add(new Circle(width/2 + delta, height/2, radius));
-  }
-  
-  return circles;
-}
-
+} // end class SequencePacker
 
 interface RunStrategy {
   int run(Pack pack);
@@ -141,15 +185,19 @@ interface RunStrategy {
 
 public class SimpleBoxStrategy implements RunStrategy {
   long iteration = 0;
-  
-  int run(Pack pack) {
-    
-    float w = 600;
-    float h = 280;
-    
-    
+  float w = canvasWidth;
+  float h = canvasHeight;
+  float maxPosChange = 0;
+  ArrayList<PVector> checkArr = new ArrayList<PVector>(50);
+
+  // draws the current iteration of the scene.
+  // re-entarable 
+  public int run(Pack pack) 
+  {
     pack.setBoxHeight(h);
     pack.setBoxWidth(w);
+    
+    boolean checkPoint = iteration%checkIteration == 0 && iteration > 0;
     
     // draw box    
     noFill();
@@ -159,25 +207,50 @@ public class SimpleBoxStrategy implements RunStrategy {
     PVector[] separate_forces = new PVector[pack.circles.size()];
     int[] near_circles = new int[pack.circles.size()];
     
-    if (++iteration >= 1000) {
-      println("stopped: max iterations reached: " +  1000);
+    if (++iteration >= maxIterations) {
+      println("stopped: max iterations reached: " +  maxIterations);
       return -1;
     }
     
-    //println("iteration " + iteration);
-    
+    // get positions and draw all circles
+    PVector centerGravity = new PVector(canvasWidth/2, canvasHeight/2, 0);
     boolean forced = false;
     for (int i=0; i < pack.circles.size(); i++) {
+      Circle cs = pack.circles.get(i);
       pack.checkBorders(i);
-      if (pack.applySeparationForcesToCircle(i, separate_forces, near_circles)) {
+      if (pack.applySeparationForcesToCircle(i, separate_forces, near_circles, centerGravity)) {
         forced = true;
       }
       pack.displayCircle(i);
+
+      // check for stop due to stability
+      if (iteration == 1) {
+        checkArr.add(new PVector(cs.position.x, cs.position.y));
+      }
+      if (checkPoint) {
+        float mag = checkArr.get(i).dist(new PVector(cs.position.x, cs.position.y));
+        //skipping fake circles
+        if (cs.radius >= minRadius && maxPosChange < mag) {
+          maxPosChange = mag;
+        }
+        checkArr.set(i, new PVector(cs.position.x, cs.position.y));
+      }
     }
     
+    if (checkPoint) {
+      println ("iteration " + (iteration-1) + ", maxPosChange=" + maxPosChange);
+      if (maxPosChange < minShiftAtCheck) {
+        println("stopped: stability after " + iteration + " iterations");
+        return 2; //finished successfully
+      }
+      maxPosChange = 0;
+    }
+    
+    
+    // would stop only when no gravity applied
     if (!forced) {
       println("success after " + iteration + " iterations");
-      return 1;
+      return 1; //finished successfully
     }
     
     return 0; //not finished
@@ -194,13 +267,16 @@ public class Pack {
   private RunStrategy strategy;
   private float max_speed = 1;
   private float max_force = 1;
-  private float border;
   
   // borders
   private float left;
   private float right;
   private float up;
   private float down;
+
+  public int run() {
+    return strategy.run(this);
+  }
 
   public void setStrategy(RunStrategy strategy) {
     this.strategy = strategy;
@@ -222,10 +298,6 @@ public class Pack {
     up = down + val - 2*border;
   }
   
-  public int run() {
-    return strategy.run(this);
-  }
-
   private void checkBorders(int i) {
     
     Circle circle_i=circles.get(i);
@@ -241,15 +313,17 @@ public class Pack {
   }
 
   private boolean applySeparationForcesToCircle(
-    int i, PVector[] separate_forces, int[] near_circles)
+    int i, PVector[] separate_forces, int[] near_circles,
+    PVector centerGravity)
   {
     boolean forced = false;
     
-    if (separate_forces[i]==null)
+    if (separate_forces[i] == null)
       separate_forces[i]=new PVector();
 
     Circle circle_i=circles.get(i);
 
+    // add separation forces from all surrounding circles
     for (int j=i+1; j<circles.size(); j++) {
 
       if (separate_forces[j] == null) 
@@ -268,15 +342,21 @@ public class Pack {
       }
     }
 
-    if (near_circles[i]>0) {
+    if (near_circles[i] > 0) {
       separate_forces[i].div((float)near_circles[i]);
     }
-
-    if (separate_forces[i].mag() >0) {
+    
+    if (separate_forces[i].mag() > 0) {
       forced = true;
       separate_forces[i].setMag(max_speed);
       separate_forces[i].sub(circles.get(i).velocity);
       separate_forces[i].limit(max_force);
+    } 
+    else if (true && centerGravity != null) {
+      // add center gravity force if not forced out
+      forced = true;
+      PVector vgf = getGravityForce(circle_i, centerGravity);
+      separate_forces[i].sub(vgf);
     }
 
     PVector separation = separate_forces[i];
@@ -284,9 +364,12 @@ public class Pack {
     circles.get(i).applyForce(separation);
     circles.get(i).update();
 
-    // If they have no intersecting neighbours they will stop moving
-    circle_i.velocity.x = 0.0;
-    circle_i.velocity.y = 0.0;
+    // If they have no intersecting neighbours they will stop moving.
+    // Only effective when no gravity
+    if (centerGravity == null) {
+      circle_i.velocity.x = 0.0;
+      circle_i.velocity.y = 0.0;
+    }
     
     return forced;
   }
@@ -300,6 +383,16 @@ public class Pack {
       diff.div(d);
       steer.add(diff);
     }
+    return steer;
+  }
+
+  private PVector getGravityForce(Circle n1, PVector centerGravity) {
+    PVector steer = new PVector(0, 0, 0);
+    PVector diff = PVector.sub(n1.position, centerGravity);
+    diff.normalize();
+    float c = n1.radius/350;
+    diff.mult(c*c); //proportional to radius
+    steer.add(diff);
     return steer;
   }
 
