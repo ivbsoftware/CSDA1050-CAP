@@ -38,4 +38,10 @@ Data Preparation:
 
 The final results is a cleaned.csv file that is created in your designated location.
 
+### Step 3 - Craiglist Housing Detailed Analysis
+Run the CL Housing Detailed Analysis.ipynb script
+
+This script creates geodataframes using Shapediles and census data extracted from Simply Analytics and from the cleaned dataset produced in step 2 of this document. Some geospatial analysis is done to understand the data and a scoreing system of affordability of listing by neighbourhood is produced. The scoring function can be easily amended (where indicated in the script) to allow for different analysis.
+
+Source: https://simplyanalytics.com/
 
