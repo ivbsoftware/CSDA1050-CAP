@@ -1,20 +1,20 @@
 // Inspired by https://github.com/zmorph/codeplastic/blob/master/circle_packing/circle_packing.pde
 // To run in Processing IDE
 
-float border = 0;
+float border = 5;
 int canvasWidth = 1778;
 int canvasHeight = 1000;
-float minRadius = 50;
-float maxRadius = 700;
-float zeroRadius = 0.5;
+float minRadius = 100;
+float maxRadius = 675;
+float zeroRadius = 7;
 
-int numTransitionFrames = 10;
+int numTransitionFrames = 9;
 
 // stop process controls
-int gravityCoef = 300;
-int maxIterations = 1000;
+int gravityCoef = 250;
+int maxIterations = 2000;
 int checkIteration = 50;
-float minShiftAtCheck = 20;
+float minShiftAtCheck = 15;
 
 //Pack pack;
 Table table;  
@@ -194,6 +194,7 @@ class SequencePacker {
         row.setInt("transition", c.transition);
       }
     }
+    saveFrame("../frames/pack." + nf(frameNum, 3) + "." + nf(transitionNum,3) + ".png");
 
     // next frame/transition
     ArrayList<Circle> nextCircles = getCirclesSet(frameNum + 1);
@@ -282,11 +283,6 @@ public class SimpleBoxStrategy implements RunStrategy {
     PVector[] separate_forces = new PVector[pack.circles.size()];
     int[] near_circles = new int[pack.circles.size()];
     
-    if (++iteration >= maxIterations) {
-      println("...stopped: max iterations reached: " +  maxIterations);
-      return -1;
-    }
-    
     // get positions and draw all circles
     PVector centerGravity = new PVector(canvasWidth/2, canvasHeight/2, 0);
     boolean forced = false;
@@ -299,17 +295,22 @@ public class SimpleBoxStrategy implements RunStrategy {
       pack.displayCircle(i);
 
       // check for stop due to stability
-      if (iteration == 1) {
+      if (iteration == 0) {
         checkArr.add(new PVector(cs.position.x, cs.position.y));
       }
       if (checkPoint) {
         float mag = checkArr.get(i).dist(new PVector(cs.position.x, cs.position.y));
         //skipping fake circles
-        if (cs.radius > zeroRadius && maxPosChange < mag) {
+        if (cs.radius > minRadius/2 && maxPosChange < mag) {
           maxPosChange = mag;
         }
         checkArr.set(i, new PVector(cs.position.x, cs.position.y));
       }
+    }
+    
+    if (++iteration >= maxIterations) {
+      println("...stopped: max iterations reached: " +  maxIterations);
+      return -1;
     }
     
     if (checkPoint) {
@@ -449,7 +450,7 @@ public class Pack {
 
   private PVector getSeparationForce(Circle n1, Circle n2) {
     PVector steer = new PVector(0, 0, 0);
-    if (n1.radius > zeroRadius && n1.radius > zeroRadius) {
+    if (true || n1.radius > zeroRadius && n1.radius > zeroRadius) {
       float d = PVector.dist(n1.position, n2.position);
       if ((d > 0) && (d < n1.radius/2+n2.radius/2 + border)) {
         PVector diff = PVector.sub(n1.position, n2.position);
@@ -463,10 +464,18 @@ public class Pack {
 
   private PVector getGravityForce(Circle n1, PVector centerGravity) {
     PVector steer = new PVector(0, 0, 0);
-    PVector diff = PVector.sub(n1.position, centerGravity);
+    PVector bhGravity = new PVector(centerGravity.x, centerGravity.y); 
+    
+    // elipsoid black hole
+    if (true) {
+      float backHoleWidth = 0.9;  
+      bhGravity.x += backHoleWidth * (n1.position.x - centerGravity.x);
+    }
+    PVector diff = PVector.sub(n1.position, bhGravity);
+    
     diff.normalize();
     float c = n1.radius/gravityCoef;
-    diff.mult(c*c); //proportional to radius
+    diff.mult(pow(c,3)); //proportional to radius
     steer.add(diff);
     return steer;
   }
