@@ -2,17 +2,17 @@
 // To run in Processing IDE
 
 float border = 0;
-
 int canvasWidth = 1778;
 int canvasHeight = 1000;
-
-float minRadius = 50;
-float maxRadius = 700;
+float minRadius = 20;//50;
+float maxRadius = 150;//700;
+int numTransitionFrames = 5;
 
 // stop process controls
+int gravityCoef = 100;//300;
 int maxIterations = 1000;
 int checkIteration = 50;
-float minShiftAtCheck = 25;
+float minShiftAtCheck = 20;
 
 //Pack pack;
 Table table;  
@@ -39,12 +39,14 @@ void draw() {
 }
 
 
-// processing class
+// Main processing class
 class SequencePacker {
   Table data;
   Pack curPack;
   int frameNum;
+  int transitionNum;
   ArrayList<ArrayList<Circle>> frameCirclesArr;
+  Table resultTable;
 
   SequencePacker(Table data) {
     this.data = data;
@@ -52,22 +54,33 @@ class SequencePacker {
   
   void init() {
     frameNum = -1;
+
+    //prepare result table
+    resultTable = new Table();
+    resultTable.addColumn("day");
+    resultTable.addColumn("date");
+    resultTable.addColumn("cluster");
+    resultTable.addColumn("x");
+    resultTable.addColumn("y");
+    resultTable.addColumn("radius");
+    resultTable.addColumn("transition");
+    
     //Calculate real min/max radii
-    float minCurRad = 0;
-    float maxCurRad = 0;
+    int minCount = -1;
+    int maxCount = 0;
     for (TableRow row : table.rows()) {
       int count = row.getInt("count");
-      if (minCurRad > 0 && minCurRad > count) {
-        minCurRad = count;
+      if (minCount < 0 || minCount > count) {
+        minCount = count;
       }
-      if (maxCurRad < count) {
-        maxCurRad = count;
+      if (maxCount < count) {
+        maxCount = count;
       }
     }
-    println("...Counts: min=" + minCurRad + ", max=" + maxCurRad);
+    println("...Counts: min=" + minCount + ", max=" + maxCount);
     
     // scale
-    float radScale = (maxRadius - minRadius)/(maxCurRad - minCurRad);
+    float radScale = (maxRadius - minRadius)/(maxCount - minCount);
     
     // get circles for each frame
     frameCirclesArr = new ArrayList<ArrayList<Circle>>();
@@ -75,33 +88,45 @@ class SequencePacker {
     int curDay = -1;
     int i = 0;
     for (TableRow row : table.rows()) {
-      //String date = row.getString("date");
-      //int cluster = row.getInt("cluster");
+      String date = row.getString("date");
+      int cluster = row.getInt("cluster");
       int count = row.getInt("count");
       int day = row.getInt("day");
       
       // new day
       if (day != curDay) {
-        println("....Day: " + day);
+        //println("....Day: " + day);
         i = 0;
         curDay = day;
         circles = new ArrayList<Circle>();
         frameCirclesArr.add(circles);
       }
       
-      float radius = minRadius + radScale * count;
-      if (count <= 0) {
+      float radius;
+      if (count > 0) {
+        radius = minRadius + radScale * count;
+      } else {
         radius = minRadius/100;
       }
       
-      PVector offset = getSpiralOffset(i, width/2, height/2, height/5, 50, -5, 0);
-      circles.add(new Circle(offset.x, offset.y, radius));
+      PVector offset = getSpiralOffset(i, width/2, height/2, height/4, 50, -5, 0);
+      Circle c = new Circle(offset.x, offset.y, radius);
+      circles.add(c);
+      
+      // metadata
+      c.day = day;
+      c.date = date;
+      c.cluster = cluster;
+      c.transition = 0;
+      
       i++;
     }  
     
     curPack = new Pack();
+    
     if(!nextFrame()) {
-      println("...stopped");
+    //  saveTable(resultTable, "../frameSequence.csv");      
+    //  println("...saved \"../frameSequence.csv\" and stopped");
       stop();
     }
   }
@@ -125,26 +150,42 @@ class SequencePacker {
     return new PVector(centerX + cos(around) * away, centerY + sin(around) * away);
   } 
   
-  ArrayList<Circle> getNextCirclesSet() {
+  ArrayList<Circle> getCirclesSet(int num) {
     int len = frameCirclesArr.size();
-    if (frameNum >= len) {
+    if (num >= len) {
       return null;
     }
-    return frameCirclesArr.get(frameNum);
+    return frameCirclesArr.get(num);
   }
   
   // Frame management
   boolean nextFrame() {
     boolean ret = false;
     
+    // Frame finished
     if (frameNum >= 0) {
       println("...  finished frame: " + frameNum);
-     //TODO 
+    
+      // save circles, skip 0 diameter ones
+      ArrayList<Circle> circles = curPack.circles;
+      int len = circles.size();
+      for (int i = 0; i < len; i++) {
+        Circle c = circles.get(i);
+        if (c.radius >= minRadius) {
+          TableRow row = resultTable.addRow();
+          row.setInt("day", c.day);
+          row.setString("date", c.date);
+          row.setInt("cluster", c.cluster);
+          row.setFloat("x", c.position.x);
+          row.setFloat("y", c.position.y);
+          row.setFloat("radius", c.radius);
+          row.setInt("transition", c.transition);
+        }
+      }
     }
 
-    // next frames
-    frameNum++;
-    ArrayList<Circle> circles = getNextCirclesSet();
+    // next frame
+    ArrayList<Circle> circles = getCirclesSet(frameNum+1); //todo fix
     if (circles != null) {
       curPack.setStrategy(new SimpleBoxStrategy());
       
@@ -153,11 +194,24 @@ class SequencePacker {
         //set first day circles
         curPack.setCircles(circles);
       } else {
-        // just update the radii
+        // all other days - just update the radii and metadata
         for (int i=0; i < curCircles.size(); i++) {
-          curCircles.get(i).radius = circles.get(i).radius;
+          Circle ct = curCircles.get(i);
+          for (int j = 0; j < circles.size(); j++) {
+            Circle cs = circles.get(j); 
+            if (ct.cluster == cs.cluster) {
+              ct.radius = cs.radius;
+              ct.day = cs.day;
+              ct.date = cs.date;
+            }
+          }
         }
       }
+      frameNum++;
+      //if (++transitionNum >= numTransitionFrames) {
+      //  frameNum++;
+      //  transitionNum = 0;
+      //}
       
       ret = true;
     }
@@ -172,7 +226,9 @@ class SequencePacker {
     int ret = curPack.run();
     if (ret != 0) {
       if(!nextFrame()) {
-        println("...stopped");
+        saveTable(resultTable, "../frameSequence.csv");      
+        println("...saved \"../frameSequence.csv\" and stopped");
+        //println("...stopped");
         stop();
       }
     }
@@ -183,6 +239,9 @@ interface RunStrategy {
   int run(Pack pack);
 }
 
+/**
+  class SimpleBoxStrategy
+**/
 public class SimpleBoxStrategy implements RunStrategy {
   long iteration = 0;
   float w = canvasWidth;
@@ -190,8 +249,7 @@ public class SimpleBoxStrategy implements RunStrategy {
   float maxPosChange = 0;
   ArrayList<PVector> checkArr = new ArrayList<PVector>(50);
 
-  // draws the current iteration of the scene.
-  // re-entarable 
+  // draws the current iteration of the scene (re-entarable) 
   public int run(Pack pack) 
   {
     pack.setBoxHeight(h);
@@ -208,7 +266,7 @@ public class SimpleBoxStrategy implements RunStrategy {
     int[] near_circles = new int[pack.circles.size()];
     
     if (++iteration >= maxIterations) {
-      println("stopped: max iterations reached: " +  maxIterations);
+      println("...stopped: max iterations reached: " +  maxIterations);
       return -1;
     }
     
@@ -246,17 +304,14 @@ public class SimpleBoxStrategy implements RunStrategy {
       maxPosChange = 0;
     }
     
-    
     // would stop only when no gravity applied
     if (!forced) {
       println("success after " + iteration + " iterations");
       return 1; //finished successfully
     }
-    
     return 0; //not finished
   }
-  
-}
+}//end class SimpleBoxStrategy
 
 
 /**
@@ -289,15 +344,16 @@ public class Pack {
   public void setBoxWidth(float val) {
     if (val <= 0) val = canvasWidth;
     left = (width - val)/2 + border;
-    right = left + val - 2*border;
+    right = left + val - 2 * border;
   }
   
   public void setBoxHeight(float val) {
     if (val <= 0) val = canvasHeight;
     down = (height - val)/2 + border;
-    up = down + val - 2*border;
+    up = down + val - 2 * border;
   }
   
+  // Bounce of the borders
   private void checkBorders(int i) {
     
     Circle circle_i=circles.get(i);
@@ -376,12 +432,14 @@ public class Pack {
 
   private PVector getSeparationForce(Circle n1, Circle n2) {
     PVector steer = new PVector(0, 0, 0);
-    float d = PVector.dist(n1.position, n2.position);
-    if ((d > 0) && (d < n1.radius/2+n2.radius/2 + border)) {
-      PVector diff = PVector.sub(n1.position, n2.position);
-      diff.normalize();
-      diff.div(d);
-      steer.add(diff);
+    if (n1.radius >= minRadius && n1.radius >= minRadius) {
+      float d = PVector.dist(n1.position, n2.position);
+      if ((d > 0) && (d < n1.radius/2+n2.radius/2 + border)) {
+        PVector diff = PVector.sub(n1.position, n2.position);
+        diff.normalize();
+        diff.div(d);
+        steer.add(diff);
+      }
     }
     return steer;
   }
@@ -390,7 +448,7 @@ public class Pack {
     PVector steer = new PVector(0, 0, 0);
     PVector diff = PVector.sub(n1.position, centerGravity);
     diff.normalize();
-    float c = n1.radius/350;
+    float c = n1.radius/gravityCoef;
     diff.mult(c*c); //proportional to radius
     steer.add(diff);
     return steer;
@@ -412,6 +470,13 @@ class Circle {
   PVector velocity;
   PVector acceleration;
   float radius;
+  
+  // metadata 
+  //TODO: shoud be done with HashMap or something
+  int day;
+  String date;
+  int cluster;
+  int transition;
 
   Circle(float x, float y, float radius) {
     acceleration = new PVector(0, 0);
