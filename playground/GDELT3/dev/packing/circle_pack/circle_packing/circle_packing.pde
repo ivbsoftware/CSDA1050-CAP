@@ -4,12 +4,14 @@
 float border = 0;
 int canvasWidth = 1778;
 int canvasHeight = 1000;
-float minRadius = 20;//50;
-float maxRadius = 150;//700;
-int numTransitionFrames = 5;
+float minRadius = 50;
+float maxRadius = 700;
+float zeroRadius = 0.5;
+
+int numTransitionFrames = 10;
 
 // stop process controls
-int gravityCoef = 100;//300;
+int gravityCoef = 300;
 int maxIterations = 1000;
 int checkIteration = 50;
 float minShiftAtCheck = 20;
@@ -53,7 +55,7 @@ class SequencePacker {
   }  
   
   void init() {
-    frameNum = -1;
+    frameNum = 0;
 
     //prepare result table
     resultTable = new Table();
@@ -106,7 +108,7 @@ class SequencePacker {
       if (count > 0) {
         radius = minRadius + radScale * count;
       } else {
-        radius = minRadius/100;
+        radius = zeroRadius;
       }
       
       PVector offset = getSpiralOffset(i, width/2, height/2, height/4, 50, -5, 0);
@@ -123,10 +125,8 @@ class SequencePacker {
     }  
     
     curPack = new Pack();
-    
-    if(!nextFrame()) {
-    //  saveTable(resultTable, "../frameSequence.csv");      
-    //  println("...saved \"../frameSequence.csv\" and stopped");
+    if(!firstFrame()) {
+      println("...nothing to do: stopped");
       stop();
     }
   }
@@ -159,61 +159,78 @@ class SequencePacker {
   }
   
   // Frame management
+  boolean firstFrame() {
+    boolean ret = false;
+    ArrayList<Circle> circles = getCirclesSet(0);
+    if (circles != null) {
+      curPack.setStrategy(new SimpleBoxStrategy());
+      curPack.setCircles(circles);
+      ret = true;
+    }
+    return ret;
+  }
+  
   boolean nextFrame() {
     boolean ret = false;
+
+    String msg = "...  finished frame: " + frameNum;
+    if (transitionNum > 0)
+      msg = msg + ", transition: " + transitionNum;
+    println(msg);
     
-    // Frame finished
-    if (frameNum >= 0) {
-      println("...  finished frame: " + frameNum);
-    
-      // save circles, skip 0 diameter ones
-      ArrayList<Circle> circles = curPack.circles;
-      int len = circles.size();
-      for (int i = 0; i < len; i++) {
-        Circle c = circles.get(i);
-        if (c.radius >= minRadius) {
-          TableRow row = resultTable.addRow();
-          row.setInt("day", c.day);
-          row.setString("date", c.date);
-          row.setInt("cluster", c.cluster);
-          row.setFloat("x", c.position.x);
-          row.setFloat("y", c.position.y);
-          row.setFloat("radius", c.radius);
-          row.setInt("transition", c.transition);
-        }
+    // Save current frame:
+    // save circles, skip 0 diameter ones
+    ArrayList<Circle> curCircles = curPack.circles; 
+    for (int i = 0; i < curCircles.size(); i++) {
+      Circle c = curCircles.get(i);
+      if (c.radius > zeroRadius) {
+        TableRow row = resultTable.addRow();
+        row.setInt("day", c.day);
+        row.setString("date", c.date);
+        row.setInt("cluster", c.cluster);
+        row.setFloat("x", c.position.x);
+        row.setFloat("y", c.position.y);
+        row.setFloat("radius", c.radius);
+        row.setInt("transition", c.transition);
       }
     }
 
-    // next frame
-    ArrayList<Circle> circles = getCirclesSet(frameNum+1); //todo fix
-    if (circles != null) {
-      curPack.setStrategy(new SimpleBoxStrategy());
-      
-      ArrayList<Circle> curCircles = curPack.circles; 
-      if (curCircles == null) {
-        //set first day circles
-        curPack.setCircles(circles);
+    // next frame/transition
+    ArrayList<Circle> nextCircles = getCirclesSet(frameNum + 1);
+    if (nextCircles != null) {
+
+      // transitions trigger
+      float transitionDelta = 1;
+      if (transitionNum >= numTransitionFrames) {
+        frameNum++;
+        transitionNum = 0;
       } else {
-        // all other days - just update the radii and metadata
-        for (int i=0; i < curCircles.size(); i++) {
-          Circle ct = curCircles.get(i);
-          for (int j = 0; j < circles.size(); j++) {
-            Circle cs = circles.get(j); 
-            if (ct.cluster == cs.cluster) {
-              ct.radius = cs.radius;
+        transitionNum++;
+        transitionDelta = 1.0 * transitionNum/(numTransitionFrames+1);
+      }
+      
+      // update the radii and metadata
+      for (int i=0; i < curCircles.size(); i++) {
+        Circle ct = curCircles.get(i);
+        for (int j = 0; j < nextCircles.size(); j++) {
+          Circle cs = nextCircles.get(j); 
+          if (ct.cluster == cs.cluster) {
+            ct.radius = ct.radius + transitionDelta * (cs.radius - ct.radius);
+            ct.transition = transitionNum;
+            
+            //all transition frames keep current date
+            if (transitionNum == 0) {
               ct.day = cs.day;
               ct.date = cs.date;
             }
           }
         }
       }
-      frameNum++;
-      //if (++transitionNum >= numTransitionFrames) {
-      //  frameNum++;
-      //  transitionNum = 0;
-      //}
       
-      ret = true;
+      // needs fresh
+      curPack.setStrategy(new SimpleBoxStrategy());
+      
+      ret = true; //new frame exists
     }
     return ret;
   }
@@ -288,7 +305,7 @@ public class SimpleBoxStrategy implements RunStrategy {
       if (checkPoint) {
         float mag = checkArr.get(i).dist(new PVector(cs.position.x, cs.position.y));
         //skipping fake circles
-        if (cs.radius >= minRadius && maxPosChange < mag) {
+        if (cs.radius > zeroRadius && maxPosChange < mag) {
           maxPosChange = mag;
         }
         checkArr.set(i, new PVector(cs.position.x, cs.position.y));
@@ -432,7 +449,7 @@ public class Pack {
 
   private PVector getSeparationForce(Circle n1, Circle n2) {
     PVector steer = new PVector(0, 0, 0);
-    if (n1.radius >= minRadius && n1.radius >= minRadius) {
+    if (n1.radius > zeroRadius && n1.radius > zeroRadius) {
       float d = PVector.dist(n1.position, n2.position);
       if ((d > 0) && (d < n1.radius/2+n2.radius/2 + border)) {
         PVector diff = PVector.sub(n1.position, n2.position);
