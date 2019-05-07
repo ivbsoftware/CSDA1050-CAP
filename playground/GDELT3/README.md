@@ -144,7 +144,7 @@ The algorithm pushes the circles apart but pulls them together to some kind of '
  [![Circular Packing](https://img.youtube.com/vi/4kubtjf-1uk/0.jpg)](https://www.youtube.com/watch?v=4kubtjf-1uk)
 
 ### Assembling the presentation movie
-At the next step ["GTA News 50 Clusters Chart Using Packed Circles Rendering v.2"](http://localhost:8888/notebooks/Downloads/York/group-projects/CSDA1050-CAP/playground/GDELT3/notebooks/GTA%20News%2090%20Days%2050%20Clusters%20WordCloud%20v3.ipynb) notebook generates a combined daily WordCloud bubbles. All 50 clusters are represented by circled clouds of the size proportional to the number of articles. Generation of all 891 slides takes about 5 minutes. The slides were assembled into the slide show of 4K video quality using [ProShow](http://www.photodex.com/proshow/producer) software by PhotoDex and uploaded to YouTube:
+At the next step ["GTA News 50 Clusters Chart Using Packed Circles Rendering v.2"](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/notebooks/GTA%20News%2090%20Days%2050%20Clusters%20WordCloud%20v3.ipynb) notebook generates a combined daily WordCloud bubbles. All 50 clusters are represented by circled clouds of the size proportional to the number of articles. Generation of all 891 slides takes about 5 minutes. The slides were assembled into the slide show of 4K video quality using [ProShow](http://www.photodex.com/proshow/producer) software by PhotoDex and uploaded to YouTube:
  
  [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/I4tF6VbPuH0/0.jpg)](https://www.youtube.com/watch?v=I4tF6VbPuH0)
  
