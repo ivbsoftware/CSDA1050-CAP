@@ -1,4 +1,4 @@
-# Visualizing GTA News Timeline
+# Visualizing 90 Days of Greater Toronto Area News in WordCloud Bubbles
 ### *Igor Baranov*
 
 ## Introduction
