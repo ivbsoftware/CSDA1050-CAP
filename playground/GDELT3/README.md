@@ -134,7 +134,7 @@ python inspect_gta_news_clusters.py
 
 
 ## Visualizing the data
-After analysys of the calculation results it conclusion was made that use of [Gapminder animation](https://www.gapminder.org/) if not the best visualizations for the data. The GapMinder-like visualization needs 4-dimensional data for each circle  - time, value(diameter), X and Y. In our case we have for each cluster only time and number of links(diameter). So we could either statically position them in X,Y or get 2D PCA coordinates using something like sklearn.decomposition PCA library. 
+After analysys of the calculation results the conclusion was made that use of [Gapminder animation](https://www.gapminder.org/) is not the best visualizations for the data. The GapMinder-like visualization needs 4-dimensional data for each circle  - time, value(diameter), X and Y. In our case for each news cluster we have only time and number of links(diameter). So we could either statically position them in X,Y or get 2D PCA coordinates using something like sklearn.decomposition PCA library. 
 
 To visualize the data it was decided to use WordClouds rendered for each news cluster for each of 90 days of the collected GTA news. The idea was to implement something similar [Tableau Bubble chart](https://www.visualcapitalist.com/population-every-country-bubble/). 
 
