@@ -113,9 +113,9 @@ To prepare word cloud circles for all 50 cluster for each of 90 dates of collect
 
 
 
- To visualize the data it was decided to use WordCloud. [GTA News 90 Days 50 Clusters WordCloud](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/notebooks/GTA%20News%2090%20Days%2050%20Clusters%20WordCloud%20v1.ipynb) notebook generates a combined daily WordCloud bubbles. All 50 clusters are reresented by circled clouds of the size proportional to the number of articles. Generation of all 90 slides takes about 3 hours. The slides were assembled into the slide show of 4K video quality using [ProShow](http://www.photodex.com/proshow/producer) software by PhotoDex and uploaded to YouTube:
+ To visualize the data it was decided to use WordCloud. [GTA News 90 Days 50 Clusters WordCloud](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/notebooks/GTA%20News%2090%20Days%2050%20Clusters%20WordCloud%20v1.ipynb) notebook generates a combined daily WordCloud bubbles. All 50 clusters are reresented by circled clouds of the size proportional to the number of articles. Generation of all 891 slides takes about 5 minutes. The slides were assembled into the slide show of 4K video quality using [ProShow](http://www.photodex.com/proshow/producer) software by PhotoDex and uploaded to YouTube:
  
- [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/IaGcme4d6ho/0.jpg)](https://www.youtube.com/watch?v=IaGcme4d6ho)
+ [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/I4tF6VbPuH0/0.jpg)](https://www.youtube.com/watch?v=I4tF6VbPuH0)
  
 ## Conclusion
  
