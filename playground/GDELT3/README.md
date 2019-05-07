@@ -134,7 +134,9 @@ python inspect_gta_news_clusters.py
 
 
 ## Visualizing the data
-To visualize the data it was decided to use WordClouds rendered for each news cluster for each of 90 days of the collected GTA news.
+After analysys of the calculation results it conclusion was made that use of [Gapminder animation](https://www.gapminder.org/) if not the best visualizations for the data. The GapMinder-like visualization needs 4-dimensional data for each circle  - time, value(diameter), X and Y. In our case we have for each cluster only time and number of links(diameter). So we could either statically position them in X,Y or get 2D PCA coordinates using something like sklearn.decomposition PCA library. 
+
+To visualize the data it was decided to use WordClouds rendered for each news cluster for each of 90 days of the collected GTA news. The idea was to implement something similar [Tableau Bubble chart](https://www.visualcapitalist.com/population-every-country-bubble/). 
 
 ### Progressive circular packing algorithm
 To prepare word cloud circles for all 50 cluster for each of 90 dates of collected data, a special ['progressive circle packing algorithm'](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/dev/packing/circle_pack/circle_packing/circle_packing.pde) was developed. The [input data](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/dev/packing/circle_pack/packing_input.csv) for the algorithm was prepared in ["GTA News 50 Clusters: generate input for packing"](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/notebooks/GTA%20News%2090%20Days%2050%20Clusters%20generate%20input%20for%20Packing.ipynb) notebook.
