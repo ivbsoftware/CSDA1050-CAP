@@ -11,3 +11,9 @@ gta-news/doc2vec/data/news-dataset-huffington.model
 data/kaggle-news-category-dataset/News_Category_Dataset_v2.json
 dev/packing/circle_pack/frames*/
 dev/packing/circle_pack/todelete/
+notebooks/wc*/
+notebooks/todelete/
+notebooks/movies/*.pxc
+notebooks/movies/*.mp4
+dev/packing/circle_pack/movies/*.pxc
+dev/packing/circle_pack/movies/*.mp4
