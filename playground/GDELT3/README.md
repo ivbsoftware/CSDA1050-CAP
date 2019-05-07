@@ -140,13 +140,14 @@ python inspect_gta_news_clusters.py
 ## Visualizing the data
 To visualize the data it was decided to use WordClouds rendered for each news cluster for each of 90 days of the collected GTA news.
 
- ## Progressive circular packing algorithm
+### Progressive circular packing algorithm
 To prepare word cloud circles for all 50 cluster for each of 90 dates of collected data, a special ['progressive circle packing algorithm'](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/dev/packing/circle_pack/circle_packing/circle_packing.pde) was developed. The [input data](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/dev/packing/circle_pack/packing_input.csv) for the algorithm was preapared in ["GTA News 50 Clusters: generate input for packing"](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/notebooks/GTA%20News%2090%20Days%2050%20Clusters%20generate%20input%20for%20Packing.ipynb) notebook.
 
 The algorithm pushes the circles apart but pulls them together to some kind of 'gravitational line' in the middle. This allowed the circles to pack in the center of the canvas keeping the shape proportional to the containing rectangle. Places in the center at the first frame, the circles were sorting their positions other until movements settle after about 100-800 iterations. The algorithm was used  to generate circle packs for each day plus 9 transitional frames between (891 frames in total). To keep the positions consistent and movements fluent from frame to frame, each frame was given was given the previous frame position as starting point and then diameter of the circles were corrected to reflect new frame. Then the iterational process would re-pack the circles. In the demonstration of this process below each ankor frame shows for 1 second, the 9 transitions are blended in 0.5 second.
 
  [![Circular Packing](https://img.youtube.com/vi/4kubtjf-1uk/0.jpg)](https://www.youtube.com/watch?v=4kubtjf-1uk)
 
+### Assembling the presentation movie
 At the next step ["GTA News 50 Clusters Chart Using Packed Circles Rendering v.2"](http://localhost:8888/notebooks/Downloads/York/group-projects/CSDA1050-CAP/playground/GDELT3/notebooks/GTA%20News%2090%20Days%2050%20Clusters%20WordCloud%20v3.ipynb) notebook generates a combined daily WordCloud bubbles. All 50 clusters are reresented by circled clouds of the size proportional to the number of articles. Generation of all 891 slides takes about 5 minutes. The slides were assembled into the slide show of 4K video quality using [ProShow](http://www.photodex.com/proshow/producer) software by PhotoDex and uploaded to YouTube:
  
  [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/I4tF6VbPuH0/0.jpg)](https://www.youtube.com/watch?v=I4tF6VbPuH0)
