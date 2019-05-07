@@ -41,10 +41,7 @@ Download, clean and tokenize the Haffington Post news corpus. Parameters of this
 python prepare_train_corpus.py 0 -1 0 
 ```
 ### Training Doc2Vec model
- - Training process is done the [this script](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/gta-news/doc2vec/train_doc2vec.py). 
- - TODO: Testing model to check if the results make sense
-
-The script below reads __data/news-dataset.txt__ containig ~187K documents and creates Doc2Vec __news-dataset-huffington.model__ file.
+ Training process is done the [this Python code](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/gta-news/doc2vec/train_doc2vec.py). The script reads __data/news-dataset.txt__ containig ~187K documents and creates Doc2Vec __news-dataset-huffington.model__ file. This is how it should be run from the command line:
 
 ```python
 python train_doc2vec.py
@@ -58,12 +55,11 @@ It contains the following artifacts:
  - __news-dataset-huffington.model__ is a Doc2Vec model trained on 186,513 articles (those having more than 10 tokens).
 
 ### Testing the model
-Test your model to check if the results make sense. Code below will run several tests. Remember to place file news-dataset-huffington.model to the same folder.
+Code below will run [several tests](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/gta-news/doc2vec/inspect_doc2vec.py) to check if the generated model makes sense. Remember to place file __news-dataset-huffington.model__ described before to the same folder. It is not in this repository due it's size.
 
 ```python
 python inspect_doc2vec.py
 ```
-
 This is what it generates if worked properly:
 ```bash
 >>> Test 1:
