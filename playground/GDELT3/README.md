@@ -104,6 +104,10 @@ python inspect_gta_news_clusters.py
 
 ## Visualizing the data
  
+ ## Progressive circular packing algorithm
+ This algorithm is based on idea presented ... .
+ [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/4kubtjf-1uk/0.jpg)](https://www.youtube.com/watch?v=4kubtjf-1uk)
+ 
  To visualize the data it was decided to use WordCloud. [GTA News 90 Days 50 Clusters WordCloud](https://github.com/ivbsoftware/CSDA1050-CAP/blob/master/playground/GDELT3/notebooks/GTA%20News%2090%20Days%2050%20Clusters%20WordCloud%20v1.ipynb) notebook generates a combined daily WordCloud bubbles. All 50 clusters are reresented by circled clouds of the size proportional to the number of articles. Generation of all 90 slides takes about 3 hours. The slides were assembled into the slide show of 4K video quality using [ProShow](http://www.photodex.com/proshow/producer) software by PhotoDex and uploaded to YouTube:
  
  [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/IaGcme4d6ho/0.jpg)](https://www.youtube.com/watch?v=IaGcme4d6ho)
