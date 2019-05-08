@@ -1,4 +1,4 @@
-Twitter Sentiment Analysis
+#Twitter Text and Sentiment Analysis
 This folder contains the code used to perform a Twitter text and sentiment analysis
 
 Step 1 - Retrieve Tweets using Twitter API
